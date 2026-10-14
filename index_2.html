@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tess brumwell-gaze</title>
+  <meta name="description" content="Designing content and the strategy behind it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;1,400&family=Young+Serif&display=swap" rel="stylesheet">
+  <style>
+    /* ===== COLOURS =====
+       Change any of these and the whole site updates. */
+    :root {
+      --paper: #ffffff;      /* main background — lots of white space */
+      --lime: #e8edb4;       /* masthead and footer */
+      --ink: #1f1f1c;        /* text */
+      --ink-soft: #6b6a64;   /* secondary text */
+      --rule: #e4e2dc;       /* thin divider lines */
+
+      /* Splashes of colour */
+      --olive: #4f6b2a;
+      --mustard: #f2c94c;
+      --tomato: #e4572e;
+      --teal: #7bb0ac;
+      --navy: #346799;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Bitter", Georgia, serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .serif { font-family: "Young Serif", Georgia, serif; font-weight: 400; }
+
+    /* Small spaced-out capitals, used for labels and navigation */
+    .caps {
+      font-size: .72rem; text-transform: uppercase; letter-spacing: .16em;
+      font-weight: 500;
+    }
+
+    /* ===== ANIMATION — fade and slide up as things appear ===== */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .8s ease, transform .8s ease;
+      transition-delay: var(--d, 0s);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    @keyframes bob { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(.6deg); } }
+    .bob { animation: bob 7s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .bob { animation: none; }
+    }
+
+    /* ===== MASTHEAD (lime) ===== */
+    header { background: var(--lime); }
+    .masthead {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      height: 76px;
+    }
+    .masthead nav { display: flex; gap: 32px; }
+    .masthead nav.right { justify-content: flex-end; }
+    .masthead nav a { text-decoration: none; color: var(--ink); transition: color .2s; }
+    .masthead nav a:hover { color: var(--tomato); }
+    .site-title { font-size: 1.5rem; letter-spacing: -.02em; text-decoration: none; }
+
+    /* ===== HERO — split, lots of air ===== */
+    .hero {
+      display: grid; grid-template-columns: 1.1fr 1fr; align-items: center;
+      gap: 64px; padding-top: 120px; padding-bottom: 130px;
+    }
+    .hero-art svg { width: 100%; height: auto; overflow: visible; }
+    .kicker { display: flex; align-items: center; gap: 14px; color: var(--tomato); margin-bottom: 26px; }
+    .kicker::before { content: ""; width: 36px; height: 1.5px; background: currentColor; }
+    .hero h1 {
+      font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+      line-height: 1.02; letter-spacing: -.025em; margin-bottom: 28px;
+    }
+    .hero .kicker { font-size: .72rem; color: var(--tomato); margin-bottom: 26px; max-width: none; }
+    .hero p:not(.kicker) { font-size: 1.15rem; color: var(--ink-soft); max-width: 34ch; margin-bottom: 34px; }
+    .text-link {
+      text-decoration: none; border-bottom: 1.5px solid var(--ink); padding-bottom: 3px;
+      transition: color .2s, border-color .2s;
+    }
+    .text-link:hover { color: var(--tomato); border-color: var(--tomato); }
+
+    /* ===== TOPIC STRIP ===== */
+    .topics { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .topics ul {
+      list-style: none; display: flex; justify-content: space-between; flex-wrap: wrap;
+      gap: 12px 24px; padding: 18px 0; color: var(--ink-soft);
+    }
+    .topics li { display: flex; align-items: center; gap: 24px; }
+    .topics li + li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--tomato); }
+
+    /* ===== WORK ===== */
+    .work { padding: 120px 0 130px; }
+    .section-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding-bottom: 18px; border-bottom: 2px solid var(--ink); margin-bottom: 48px;
+    }
+    .grid { display: grid; gap: 56px 40px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .project { text-decoration: none; display: block; }
+    .project .thumb {
+      aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 22px;
+      background: var(--c); display: grid; place-items: center;
+    }
+    .project .thumb .ph { font-family: "Young Serif", serif; font-size: 3.4rem; color: rgba(255,255,255,.85); }
+    .project .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .project:hover .thumb img { transform: scale(1.04); }
+    .project .cat { color: var(--c); margin-bottom: 10px; }
+    .project h3 { font-size: 1.55rem; line-height: 1.18; margin-bottom: 10px; transition: color .2s; }
+    .project:hover h3 { color: var(--c); }
+    .project p { font-style: italic; color: var(--ink-soft); font-size: .98rem; }
+
+    /* ===== CLIENTS ===== */
+    .clients { padding: 0 0 120px; }
+    .clients .caps { color: var(--ink-soft); text-align: center; margin-bottom: 30px; }
+    .logo-row {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+      gap: 32px; padding: 34px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    }
+    .logo-row .logo { height: 46px; display: grid; place-items: center; min-width: 60px; }
+    .logo-row img { height: 100%; width: auto; object-fit: contain; }
+    .logo-row .logo span { font-family: "Young Serif", serif; font-size: 1.15rem; color: var(--ink-soft); }
+
+    /* ===== FOOTER (lime) ===== */
+    footer { background: var(--lime); padding: 96px 0 40px; }
+    .contact { display: grid; gap: 64px; grid-template-columns: 1fr 1fr; align-items: start; }
+    .contact .kicker { color: var(--navy); }
+    .contact h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -.02em; margin-bottom: 22px; }
+    .contact .email { font-family: "Young Serif", serif; font-size: 1.3rem; }
+    .icons { display: flex; gap: 16px; margin-top: 22px; }
+    .icons a { display: inline-grid; place-items: center; width: 28px; height: 28px; transition: color .2s; }
+    .icons a:hover { color: var(--tomato); }
+    form label { display: block; color: var(--ink-soft); margin-bottom: 8px; }
+    form input, form textarea {
+      width: 100%; padding: 12px 0; margin-bottom: 26px;
+      font: inherit; color: var(--ink); background: transparent;
+      border: none; border-bottom: 1.5px solid rgba(31,31,28,.35); border-radius: 0;
+    }
+    form input:focus, form textarea:focus { outline: none; border-bottom-color: var(--ink); }
+    form textarea { min-height: 110px; resize: vertical; }
+    form button {
+      font: inherit; cursor: pointer; padding: 13px 34px;
+      border: none; background: var(--ink); color: #fff; transition: background .2s;
+    }
+    form button:hover { background: var(--tomato); }
+    .hidden { display: none; }
+    .footer-base {
+      margin-top: 80px; padding-top: 22px; border-top: 1px solid rgba(31,31,28,.15);
+      display: flex; justify-content: space-between; color: var(--ink-soft);
+    }
+
+    /* ===== PHONES ===== */
+    @media (max-width: 800px) {
+      .wrap { padding: 0 20px; }
+      .masthead { grid-template-columns: 1fr; height: auto; padding: 20px 0 16px; text-align: center; gap: 10px; }
+      .masthead nav { justify-content: center !important; gap: 22px; }
+      .masthead nav.left { order: 2; }
+      .masthead nav.right { order: 3; }
+      .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; padding-bottom: 80px; }
+      .topics ul { justify-content: center; }
+      .work { padding: 80px 0; }
+      .contact { grid-template-columns: 1fr; }
+      .footer-base { flex-direction: column; gap: 6px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <header>
+    <div class="wrap masthead">
+      <nav class="left caps">
+        <a class="reveal" style="--d:.05s" href="#work">Work</a>
+        <a class="reveal" style="--d:.1s" href="#clients">Clients</a>
+      </nav>
+      <a class="site-title serif reveal" href="#top">tess brumwell-gaze</a>
+      <nav class="right caps">
+        <a class="reveal" style="--d:.15s" href="#contact">Contact</a>
+        <!-- Replace YOUR-PROFILE with your LinkedIn address, or delete this line -->
+        <a class="reveal" style="--d:.2s" href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="wrap hero">
+      <div class="hero-art reveal" aria-hidden="true">
+        <!-- Original illustration: speech bubble, stacked cards, sticky note and a pen line -->
+        <svg viewBox="0 0 560 400" fill="none" stroke="#1f1f1c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <!-- teal squiggle -->
+          <path class="bob" style="animation-delay:-2s" d="M30 330 C 90 280, 120 380, 180 330 S 270 290, 300 350" stroke="#7bb0ac" stroke-width="7"/>
+          <!-- olive stack of cards -->
+          <g class="bob" style="animation-delay:-1s">
+            <rect x="52" y="150" width="190" height="140" rx="8" fill="#4f6b2a" transform="rotate(-7 147 220)"/>
+            <rect x="66" y="138" width="190" height="140" rx="8" fill="#f6f4ec" transform="rotate(-3 161 208)"/>
+            <path d="M92 175 h120 M92 198 h135 M92 221 h95 M92 244 h120" stroke="#1f1f1c" stroke-width="2" transform="rotate(-3 161 208)"/>
+          </g>
+          <!-- mustard speech bubble -->
+          <g class="bob">
+            <path d="M262 40 h220 a30 30 0 0 1 30 30 v62 a30 30 0 0 1 -30 30 h-150 l-34 30 l6 -30 h-42 a30 30 0 0 1 -30 -30 v-62 a30 30 0 0 1 30 -30 z" fill="#f2c94c"/>
+            <circle cx="322" cy="101" r="7" fill="#1f1f1c" stroke="none"/>
+            <circle cx="372" cy="101" r="7" fill="#1f1f1c" stroke="none"/>
+            <circle cx="422" cy="101" r="7" fill="#1f1f1c" stroke="none"/>
+          </g>
+          <!-- tomato sticky note -->
+          <g class="bob" style="animation-delay:-3.5s">
+            <g transform="rotate(8 420 290)">
+              <path d="M350 220 h140 v110 l-30 30 h-110 z" fill="#e4572e"/>
+              <path d="M490 330 h-30 v30" fill="#b8411f"/>
+              <path d="M372 252 h96 M372 276 h80 M372 300 h60" stroke="#fff" stroke-width="3"/>
+            </g>
+          </g>
+          <!-- small navy dot accent -->
+          <circle class="bob" style="animation-delay:-5s" cx="530" cy="210" r="11" fill="#346799" stroke="none"/>
+        </svg>
+      </div>
+
+      <div>
+        <p class="kicker caps reveal" style="--d:.2s">Content designer</p>
+        <h1 class="serif reveal" style="--d:.3s">Designing content and the strategy behind it</h1>
+        <p class="reveal" style="--d:.4s">Takes and turns scattered ideas into strategy. Works across product teams, departments and leads design squads.</p>
+        <a class="text-link caps reveal" style="--d:.5s" href="#work">See the work →</a>
+      </div>
+    </section>
+
+    <!-- TOPIC STRIP — edit these words to describe what you do -->
+    <nav class="topics" aria-label="Areas of work">
+      <div class="wrap">
+        <ul class="caps">
+          <li>Content design</li>
+          <li>Strategy</li>
+          <li>Content systems</li>
+          <li>UX writing</li>
+          <li>Leading squads</li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- WORK
+         To add a project: copy one <a class="project"> block.
+         --c sets the card's colour splash (olive, mustard, tomato, teal or navy).
+         To show a picture instead of the colour block, save it as images/project-1.jpg etc. -->
+    <section class="work" id="work">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 class="caps reveal">Selected work</h2>
+          <a class="caps text-link reveal" href="#contact">Get in touch</a>
+        </div>
+        <div class="grid">
+
+          <a class="project reveal" style="--c: var(--tomato)" href="#">
+            <div class="thumb"><img src="images/project-1.jpg" alt="" onerror="this.outerHTML='<span class=ph>01</span>'"></div>
+            <p class="cat caps">Category</p>
+            <h3 class="serif">Project title one</h3>
+            <p>One line on the problem, what you did, and the outcome.</p>
+          </a>
+
+          <a class="project reveal" style="--c: var(--olive); --d:.1s" href="#">
+            <div class="thumb"><img src="images/project-2.jpg" alt="" onerror="this.outerHTML='<span class=ph>02</span>'"></div>
+            <p class="cat caps">Category</p>
+            <h3 class="serif">Project title two</h3>
+            <p>One line on the problem, what you did, and the outcome.</p>
+          </a>
+
+          <a class="project reveal" style="--c: var(--navy); --d:.2s" href="#">
+            <div class="thumb"><img src="images/project-3.jpg" alt="" onerror="this.outerHTML='<span class=ph>03</span>'"></div>
+            <p class="cat caps">Category</p>
+            <h3 class="serif">Project title three</h3>
+            <p>One line on the problem, what you did, and the outcome.</p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTS — save logo files into "images" with these names; until then the name shows as text -->
+    <section class="clients" id="clients">
+      <div class="wrap">
+        <p class="caps reveal">Worked with</p>
+        <div class="logo-row">
+          <div class="logo reveal"><img src="images/logo-economist.png" alt="The Economist" onerror="this.outerHTML='<span>The Economist</span>'"></div>
+          <div class="logo reveal" style="--d:.08s"><img src="images/logo-flo.png" alt="Flo" onerror="this.outerHTML='<span>Flo</span>'"></div>
+          <div class="logo reveal" style="--d:.16s"><img src="images/logo-perk.png" alt="Perk" onerror="this.outerHTML='<span>Perk</span>'"></div>
+          <div class="logo reveal" style="--d:.24s"><img src="images/logo-eventix.png" alt="Eventix" onerror="this.outerHTML='<span>Eventix</span>'"></div>
+          <div class="logo reveal" style="--d:.32s"><img src="images/logo-booking.png" alt="Booking.com" onerror="this.outerHTML='<span>Booking.com</span>'"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER + CONTACT (lime)
+       The form works automatically on Netlify; messages appear under "Forms" in your Netlify dashboard. -->
+  <footer id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <div class="reveal">
+          <p class="kicker caps">Contact</p>
+          <h2 class="serif">Let's talk about your content.</h2>
+          <a class="email" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a>
+          <div class="icons">
+            <!-- Replace YOUR-HANDLE with your Instagram username, or delete this link -->
+            <a href="https://www.instagram.com/YOUR-HANDLE/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="mailto:tess.brumwell@gmail.com" aria-label="Email">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
+            </a>
+          </div>
+        </div>
+        <form class="reveal" style="--d:.15s" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="hidden"><label>Leave this empty <input name="bot-field"></label></p>
+          <label class="caps" for="name">Name</label>
+          <input id="name" name="name" type="text" required>
+          <label class="caps" for="email">Email</label>
+          <input id="email" name="email" type="email" required>
+          <label class="caps" for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+          <button class="caps" type="submit">Send message</button>
+        </form>
+      </div>
+      <div class="footer-base caps">
+        <span>© <span id="yr">2026</span> tess brumwell-gaze</span>
+        <a href="#top" style="text-decoration:none">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Reveal elements as they scroll into view
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('in'));
+    }
+  </script>
+</body>
+</html>
