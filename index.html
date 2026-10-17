@@ -8,174 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;1,400&family=Young+Serif&display=swap" rel="stylesheet">
-  <style>
-    /* ===== COLOURS =====
-       Change any of these and the whole site updates. */
-    :root {
-      --paper: #ffffff;      /* main background — lots of white space */
-      --lime: #e8edb4;       /* masthead and footer */
-      --ink: #1f1f1c;        /* text */
-      --ink-soft: #6b6a64;   /* secondary text */
-      --rule: #e4e2dc;       /* thin divider lines */
-
-      /* Splashes of colour */
-      --olive: #4f6b2a;
-      --mustard: #f2c94c;
-      --tomato: #e4572e;
-      --teal: #7bb0ac;
-      --navy: #346799;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: "Bitter", Georgia, serif;
-      font-size: 17px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    a { color: inherit; }
-    img { max-width: 100%; display: block; }
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-    .serif { font-family: "Young Serif", Georgia, serif; font-weight: 400; }
-
-    /* Small spaced-out capitals, used for labels and navigation */
-    .caps {
-      font-size: .72rem; text-transform: uppercase; letter-spacing: .16em;
-      font-weight: 500;
-    }
-
-    /* ===== ANIMATION — fade and slide up as things appear ===== */
-    .reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity .8s ease, transform .8s ease;
-      transition-delay: var(--d, 0s);
-    }
-    .reveal.in { opacity: 1; transform: none; }
-    @keyframes bob { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(.6deg); } }
-    .bob { animation: bob 7s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .bob { animation: none; }
-    }
-
-    /* ===== MASTHEAD (lime) ===== */
-    header { background: var(--lime); }
-    .masthead {
-      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-      height: 76px;
-    }
-    .masthead nav { display: flex; gap: 32px; }
-    .masthead nav.right { justify-content: flex-end; }
-    .masthead nav a { text-decoration: none; color: var(--ink); transition: color .2s; }
-    .masthead nav a:hover { color: var(--tomato); }
-    .site-title { font-size: 1.5rem; letter-spacing: -.02em; text-decoration: none; }
-
-    /* ===== HERO — split, lots of air ===== */
-    .hero {
-      display: grid; grid-template-columns: 1.1fr 1fr; align-items: center;
-      gap: 64px; padding-top: 120px; padding-bottom: 130px;
-    }
-    .hero-art svg { width: 100%; height: auto; overflow: visible; }
-    .kicker { display: flex; align-items: center; gap: 14px; color: var(--tomato); margin-bottom: 26px; }
-    .kicker::before { content: ""; width: 36px; height: 1.5px; background: currentColor; }
-    .hero h1 {
-      font-size: clamp(2.6rem, 5.4vw, 4.4rem);
-      line-height: 1.02; letter-spacing: -.025em; margin-bottom: 28px;
-    }
-    .hero .kicker { font-size: .72rem; color: var(--tomato); margin-bottom: 26px; max-width: none; }
-    .hero p:not(.kicker) { font-size: 1.15rem; color: var(--ink-soft); max-width: 34ch; margin-bottom: 34px; }
-    .text-link {
-      text-decoration: none; border-bottom: 1.5px solid var(--ink); padding-bottom: 3px;
-      transition: color .2s, border-color .2s;
-    }
-    .text-link:hover { color: var(--tomato); border-color: var(--tomato); }
-
-    /* ===== TOPIC STRIP ===== */
-    .topics { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-    .topics ul {
-      list-style: none; display: flex; justify-content: space-between; flex-wrap: wrap;
-      gap: 12px 24px; padding: 18px 0; color: var(--ink-soft);
-    }
-    .topics li { display: flex; align-items: center; gap: 24px; }
-    .topics li + li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--tomato); }
-
-    /* ===== WORK ===== */
-    .work { padding: 120px 0 130px; }
-    .section-head {
-      display: flex; justify-content: space-between; align-items: baseline;
-      padding-bottom: 18px; border-bottom: 2px solid var(--ink); margin-bottom: 48px;
-    }
-    .grid { display: grid; gap: 56px 40px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-    .project { text-decoration: none; display: block; }
-    .project .thumb {
-      aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 22px;
-      background: var(--c); display: grid; place-items: center;
-    }
-    .project .thumb .ph { font-family: "Young Serif", serif; font-size: 3.4rem; color: rgba(255,255,255,.85); }
-    .project .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
-    .project:hover .thumb img { transform: scale(1.04); }
-    .project .cat { color: var(--c); margin-bottom: 10px; }
-    .project h3 { font-size: 1.55rem; line-height: 1.18; margin-bottom: 10px; transition: color .2s; }
-    .project:hover h3 { color: var(--c); }
-    .project p { font-style: italic; color: var(--ink-soft); font-size: .98rem; }
-
-    /* ===== CLIENTS ===== */
-    .clients { padding: 0 0 120px; }
-    .clients .caps { color: var(--ink-soft); text-align: center; margin-bottom: 30px; }
-    .logo-row {
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
-      gap: 32px; padding: 34px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-    }
-    .logo-row .logo { height: 46px; display: grid; place-items: center; min-width: 60px; }
-    .logo-row img { height: 100%; width: auto; object-fit: contain; }
-    .logo-row .logo span { font-family: "Young Serif", serif; font-size: 1.15rem; color: var(--ink-soft); }
-
-    /* ===== FOOTER (lime) ===== */
-    footer { background: var(--lime); padding: 96px 0 40px; }
-    .contact { display: grid; gap: 64px; grid-template-columns: 1fr 1fr; align-items: start; }
-    .contact .kicker { color: var(--navy); }
-    .contact h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -.02em; margin-bottom: 22px; }
-    .contact .email { font-family: "Young Serif", serif; font-size: 1.3rem; }
-    .icons { display: flex; gap: 16px; margin-top: 22px; }
-    .icons a { display: inline-grid; place-items: center; width: 28px; height: 28px; transition: color .2s; }
-    .icons a:hover { color: var(--tomato); }
-    form label { display: block; color: var(--ink-soft); margin-bottom: 8px; }
-    form input, form textarea {
-      width: 100%; padding: 12px 0; margin-bottom: 26px;
-      font: inherit; color: var(--ink); background: transparent;
-      border: none; border-bottom: 1.5px solid rgba(31,31,28,.35); border-radius: 0;
-    }
-    form input:focus, form textarea:focus { outline: none; border-bottom-color: var(--ink); }
-    form textarea { min-height: 110px; resize: vertical; }
-    form button {
-      font: inherit; cursor: pointer; padding: 13px 34px;
-      border: none; background: var(--ink); color: #fff; transition: background .2s;
-    }
-    form button:hover { background: var(--tomato); }
-    .hidden { display: none; }
-    .footer-base {
-      margin-top: 80px; padding-top: 22px; border-top: 1px solid rgba(31,31,28,.15);
-      display: flex; justify-content: space-between; color: var(--ink-soft);
-    }
-
-    /* ===== PHONES ===== */
-    @media (max-width: 800px) {
-      .wrap { padding: 0 20px; }
-      .masthead { grid-template-columns: 1fr; height: auto; padding: 20px 0 16px; text-align: center; gap: 10px; }
-      .masthead nav { justify-content: center !important; gap: 22px; }
-      .masthead nav.left { order: 2; }
-      .masthead nav.right { order: 3; }
-      .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; padding-bottom: 80px; }
-      .topics ul { justify-content: center; }
-      .work { padding: 80px 0; }
-      .contact { grid-template-columns: 1fr; }
-      .footer-base { flex-direction: column; gap: 6px; text-align: center; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -252,9 +85,8 @@
     </nav>
 
     <!-- WORK
-         To add a project: copy one <a class="project"> block.
-         --c sets the card's colour splash (olive, mustard, tomato, teal or navy).
-         To show a picture instead of the colour block, save it as images/project-1.jpg etc. -->
+         Each card links to a case study page in the "work" folder.
+         --c sets the card's colour splash (olive, mustard, tomato, teal or navy). -->
     <section class="work" id="work">
       <div class="wrap">
         <div class="section-head">
@@ -263,41 +95,68 @@
         </div>
         <div class="grid">
 
-          <a class="project reveal" style="--c: var(--tomato)" href="#">
-            <div class="thumb"><img src="images/project-1.jpg" alt="" onerror="this.outerHTML='<span class=ph>01</span>'"></div>
-            <p class="cat caps">Category</p>
-            <h3 class="serif">Project title one</h3>
-            <p>One line on the problem, what you did, and the outcome.</p>
+          <a class="project reveal" style="--c: var(--tomato); --c-text: var(--tomato-text)" href="work/flo.html">
+            <div class="thumb shot"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/8ac18862-4699-4a18-8a6d-8ec9ad6358fd/1_4EkePauUnB1uWxKOyE-fJQ.png?format=1000w" alt="" loading="lazy"></div>
+            <p class="cat caps">Narrative design</p>
+            <h3 class="serif">Narrative content design at Flo Health</h3>
+            <p class="client-line">Flo Health</p>
+            <p>Onboarding that tells a story: a consistent voice, flows tailored to user archetypes, and a new app mascot.</p>
           </a>
 
-          <a class="project reveal" style="--c: var(--olive); --d:.1s" href="#">
-            <div class="thumb"><img src="images/project-2.jpg" alt="" onerror="this.outerHTML='<span class=ph>02</span>'"></div>
-            <p class="cat caps">Category</p>
-            <h3 class="serif">Project title two</h3>
-            <p>One line on the problem, what you did, and the outcome.</p>
+          <a class="project reveal" style="--c: var(--olive); --c-text: var(--olive-text); --d:0.1s" href="work/perk.html">
+            <div class="thumb shot"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/aa771034-0c6f-4006-895d-ca7f1da76824/Screenshot+2026-01-14+at+17.54.52.png?format=1000w" alt="" loading="lazy"></div>
+            <p class="cat caps">Product content design</p>
+            <h3 class="serif">Driving bookings by listening to users at Perk</h3>
+            <p class="client-line">Perk</p>
+            <p>Cutting missed travel approvals by letting busy managers name a delegate — a term chosen through A/B testing.</p>
           </a>
 
-          <a class="project reveal" style="--c: var(--navy); --d:.2s" href="#">
-            <div class="thumb"><img src="images/project-3.jpg" alt="" onerror="this.outerHTML='<span class=ph>03</span>'"></div>
-            <p class="cat caps">Category</p>
-            <h3 class="serif">Project title three</h3>
-            <p>One line on the problem, what you did, and the outcome.</p>
+          <a class="project reveal" style="--c: var(--navy); --c-text: var(--navy-text); --d:0.2s" href="work/price-alerts.html">
+            <div class="thumb shot"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/bdc4c5da-ea92-4bb2-966c-3a2b0ebfa68c/Screenshot+2025-07-23+at+22.10.55.png?format=1000w" alt="" loading="lazy"></div>
+            <p class="cat caps">Notifications & growth</p>
+            <h3 class="serif">Booking.com price alerts</h3>
+            <p class="client-line">Booking.com</p>
+            <p>Price alerts for flexible, price-sensitive travellers. Subscribers are much more likely to book — and pay less.</p>
+          </a>
+
+          <a class="project reveal" style="--c: var(--mustard); --c-text: var(--mustard-text)" href="work/flights-vision.html">
+            <div class="thumb shot"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/817eee0d-dcb7-4ca6-be3c-1d3f2be52ea3/Screenshot+2025-08-07+at+18.55.20.png?format=1000w" alt="" loading="lazy"></div>
+            <p class="cat caps">Design leadership</p>
+            <h3 class="serif">Booking.com Flights design vision</h3>
+            <p class="client-line">Booking.com</p>
+            <p>Leading a vision project from 16 ideas to an actionable roadmap — 12+ features since explored, built or iterated on.</p>
+          </a>
+
+          <a class="project reveal" style="--c: var(--teal); --c-text: var(--teal-text); --d:0.1s" href="work/citybook.html">
+            <div class="thumb shot"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/c74e6b1a-343b-4e83-b880-1ffbb853268e/60a37b032ae66579df9060f4_5e9463892b219f85642f8e1f_5e59998659436aa4796f90bb_booking%252520light%252520mode.jpeg?format=1000w" alt="" loading="lazy"></div>
+            <p class="cat caps">Tone of voice</p>
+            <h3 class="serif">Creative content for CityBook</h3>
+            <p class="client-line">Booking.com</p>
+            <p>A travel-companion voice for an app that helped travellers experience a city step by step, like a local.</p>
+          </a>
+
+          <a class="project reveal" style="--c: var(--tomato); --c-text: var(--tomato-text); --d:0.2s" href="work/eventix.html">
+            <div class="thumb shot"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/f8110a78-e3a2-488d-8b2b-008cb257ecb5/61dbf414c46216692b2d574d_eventix-cards+%281%29.jpg?format=1000w" alt="" loading="lazy"></div>
+            <p class="cat caps">UX writing</p>
+            <h3 class="serif">Signing up events at Eventix</h3>
+            <p class="client-line">Eventix</p>
+            <p>Making the case for UX writing at a start-up: tone of voice, an events taxonomy and a localisation process.</p>
           </a>
 
         </div>
       </div>
     </section>
 
-    <!-- CLIENTS — save logo files into "images" with these names; until then the name shows as text -->
+    <!-- CLIENTS — logos load from your Squarespace image library; if one fails, the name shows as text -->
     <section class="clients" id="clients">
       <div class="wrap">
         <p class="caps reveal">Worked with</p>
         <div class="logo-row">
-          <div class="logo reveal"><img src="images/logo-economist.png" alt="The Economist" onerror="this.outerHTML='<span>The Economist</span>'"></div>
-          <div class="logo reveal" style="--d:.08s"><img src="images/logo-flo.png" alt="Flo" onerror="this.outerHTML='<span>Flo</span>'"></div>
-          <div class="logo reveal" style="--d:.16s"><img src="images/logo-perk.png" alt="Perk" onerror="this.outerHTML='<span>Perk</span>'"></div>
-          <div class="logo reveal" style="--d:.24s"><img src="images/logo-eventix.png" alt="Eventix" onerror="this.outerHTML='<span>Eventix</span>'"></div>
-          <div class="logo reveal" style="--d:.32s"><img src="images/logo-booking.png" alt="Booking.com" onerror="this.outerHTML='<span>Booking.com</span>'"></div>
+          <div class="logo reveal"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/91c13106-a4f1-4118-be22-5f06fa3e54a1/the_economist_large.png?format=300w" alt="The Economist" onerror="this.outerHTML='<span>The Economist</span>'"></div>
+          <div class="logo reveal" style="--d:.08s"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/c9ddb22e-d6b6-432c-a712-3c9bb3628326/Flo_app_logo.png?format=300w" alt="Flo" onerror="this.outerHTML='<span>Flo</span>'"></div>
+          <div class="logo reveal" style="--d:.16s"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/9f645c9e-79d1-48f8-bb1f-b6ac973dba76/perk-logo-png_seeklogo-668790.png?format=300w" alt="Perk" onerror="this.outerHTML='<span>Perk</span>'"></div>
+          <div class="logo reveal" style="--d:.24s"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/a242027a-5c82-481d-8b68-14870ffb7891/eventix.png?format=300w" alt="Eventix" onerror="this.outerHTML='<span>Eventix</span>'"></div>
+          <div class="logo reveal" style="--d:.32s"><img src="https://images.squarespace-cdn.com/content/v1/654ba6cdc15eb419491bd002/1a5055c7-16c1-4555-9577-43cea72a4132/Booking.com_Icon_2022.svg.webp?format=300w" alt="Booking.com" onerror="this.outerHTML='<span>Booking.com</span>'"></div>
         </div>
       </div>
     </section>
@@ -342,21 +201,6 @@
     </div>
   </footer>
 
-  <script>
-    document.getElementById('yr').textContent = new Date().getFullYear();
-
-    // Reveal elements as they scroll into view
-    const els = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-        });
-      }, { threshold: 0.15 });
-      els.forEach((el) => io.observe(el));
-    } else {
-      els.forEach((el) => el.classList.add('in'));
-    }
-  </script>
+  <script src="site.js"></script>
 </body>
 </html>
