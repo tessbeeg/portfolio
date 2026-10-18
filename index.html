@@ -3,54 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>tess brumwell-gaze</title>
-  <meta name="description" content="Designing content and the strategy behind it.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;1,400&family=Young+Serif&display=swap" rel="stylesheet">
+  <title>Tess Brumwell-Gaze — content designer</title>
+  <meta name="description" content="Tess Brumwell-Gaze designs content and the strategy behind it.">
+  <link rel="preload" href="Ronzino-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="Ronzino-Medium.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- MASTHEAD -->
-  <header>
-    <div class="wrap masthead">
-      <nav class="left caps">
-        <a class="reveal" style="--d:.05s" href="#work">Work</a>
-        <a class="reveal" style="--d:.1s" href="#clients">Clients</a>
-      </nav>
-      <a class="site-title serif reveal" href="#top">tess brumwell-gaze</a>
-      <nav class="right caps">
-        <a class="reveal" style="--d:.15s" href="#contact">Contact</a>
-        <!-- Replace YOUR-PROFILE with your LinkedIn address, or delete this line -->
-        <a class="reveal" style="--d:.2s" href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn</a>
-      </nav>
-    </div>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="bar">
+    <a class="bar-name" href="index.html">tess brumwell-gaze</a>
+    <nav aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <!-- Replace YOUR-PROFILE with your LinkedIn address, or delete this line -->
+      <a href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
   </header>
 
-  <main id="top">
+  <div class="split" id="top">
 
-    <!-- HERO -->
-    <section class="wrap hero">
-      <div class="hero-art reveal" aria-hidden="true">
-        <!-- Original illustration: speech bubble, stacked cards, sticky note and a pen line -->
-        <svg viewBox="0 0 560 400" fill="none" stroke="#1f1f1c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
-          <!-- teal squiggle -->
-          <path class="bob" style="animation-delay:-2s" d="M30 330 C 90 280, 120 380, 180 330 S 270 290, 300 350" stroke="#7bb0ac" stroke-width="7"/>
-          <!-- olive stack of cards -->
+    <!-- LEFT: the poster panel. Hovering a project swaps in its image. -->
+    <aside class="poster" aria-hidden="true">
+      <!-- The speech bubble illustration from the first version of the site -->
+      <div class="poster-art">
+        <svg viewBox="0 0 560 400" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path class="bob" style="animation-delay:-2s" d="M30 330 C 90 280, 120 380, 180 330 S 270 290, 300 350" stroke="#e8edb4" stroke-width="7"/>
           <g class="bob" style="animation-delay:-1s">
             <rect x="52" y="150" width="190" height="140" rx="8" fill="#4f6b2a" transform="rotate(-7 147 220)"/>
             <rect x="66" y="138" width="190" height="140" rx="8" fill="#f6f4ec" transform="rotate(-3 161 208)"/>
-            <path d="M92 175 h120 M92 198 h135 M92 221 h95 M92 244 h120" stroke="#1f1f1c" stroke-width="2" transform="rotate(-3 161 208)"/>
+            <path d="M92 175 h120 M92 198 h135 M92 221 h95 M92 244 h120" transform="rotate(-3 161 208)"/>
           </g>
-          <!-- mustard speech bubble -->
           <g class="bob">
             <path d="M262 40 h220 a30 30 0 0 1 30 30 v62 a30 30 0 0 1 -30 30 h-150 l-34 30 l6 -30 h-42 a30 30 0 0 1 -30 -30 v-62 a30 30 0 0 1 30 -30 z" fill="#f2c94c"/>
-            <circle cx="322" cy="101" r="7" fill="#1f1f1c" stroke="none"/>
-            <circle cx="372" cy="101" r="7" fill="#1f1f1c" stroke="none"/>
-            <circle cx="422" cy="101" r="7" fill="#1f1f1c" stroke="none"/>
+            <circle cx="322" cy="101" r="7" fill="#000" stroke="none"/>
+            <circle cx="372" cy="101" r="7" fill="#000" stroke="none"/>
+            <circle cx="422" cy="101" r="7" fill="#000" stroke="none"/>
           </g>
-          <!-- tomato sticky note -->
           <g class="bob" style="animation-delay:-3.5s">
             <g transform="rotate(8 420 290)">
               <path d="M350 220 h140 v110 l-30 30 h-110 z" fill="#e4572e"/>
@@ -58,149 +48,111 @@
               <path d="M372 252 h96 M372 276 h80 M372 300 h60" stroke="#fff" stroke-width="3"/>
             </g>
           </g>
-          <!-- small navy dot accent -->
           <circle class="bob" style="animation-delay:-5s" cx="530" cy="210" r="11" fill="#346799" stroke="none"/>
         </svg>
       </div>
+      <figure class="poster-preview"><img alt="" src="" hidden><figcaption></figcaption></figure>
+      <p class="poster-foot">Content designer</p>
+    </aside>
 
-      <div>
-        <p class="kicker caps reveal" style="--d:.2s">Content designer</p>
-        <h1 class="serif reveal" style="--d:.3s">Designing content and the strategy behind it</h1>
-        <p class="reveal" style="--d:.4s">Takes and turns scattered ideas into strategy. Works across product teams, departments and leads design squads.</p>
-        <a class="text-link caps reveal" style="--d:.5s" href="#work">See the work →</a>
-      </div>
-    </section>
+    <!-- RIGHT: the scrolling column -->
+    <main class="column" id="content">
 
-    <!-- TOPIC STRIP — edit these words to describe what you do -->
-    <nav class="topics" aria-label="Areas of work">
-      <div class="wrap">
-        <ul class="caps">
-          <li>Content design</li>
-          <li>Strategy</li>
-          <li>Content systems</li>
-          <li>UX writing</li>
-          <li>Leading squads</li>
+      <section class="block intro" id="about">
+        <h1 class="lede-xl">Designing content and the strategy behind it</h1>
+        <p class="lede">I turn scattered ideas into strategy, work across product teams and departments, and lead design squads, for teams including Flo Health, Perk and Booking.com.</p>
+      </section>
+
+      <section class="block" id="work" aria-labelledby="work-h">
+        <div class="label-row"><h2 class="label" id="work-h">Selected work</h2><span class="count">6 case studies</span></div>
+        <ul class="work-list">
+          <li>
+            <a class="work-row" href="flo.html">
+              <span class="work-title">Narrative content design at Flo Health</span>
+              <span class="tag">Narrative design</span>
+            </a>
+          </li>
+          <li>
+            <a class="work-row" href="perk.html">
+              <span class="work-title">Driving bookings by listening to users at Perk</span>
+              <span class="tag">Product content design</span>
+            </a>
+          </li>
+          <li>
+            <a class="work-row" href="price-alerts.html">
+              <span class="work-title">Booking.com price alerts</span>
+              <span class="tag">Notification design</span>
+            </a>
+          </li>
+          <li>
+            <a class="work-row" href="flights-vision.html">
+              <span class="work-title">Booking.com Flights design vision</span>
+              <span class="tag">Design leadership</span>
+            </a>
+          </li>
+          <li>
+            <a class="work-row" href="citybook.html">
+              <span class="work-title">Creative content for CityBook</span>
+              <span class="tag">Tone of voice</span>
+            </a>
+          </li>
+          <li>
+            <a class="work-row" href="eventix.html">
+              <span class="work-title">Signing up events at Eventix</span>
+              <span class="tag">UX writing</span>
+            </a>
+          </li>
         </ul>
-      </div>
-    </nav>
+      </section>
 
-    <!-- WORK
-         Each card links to a case study page (perk.html, flo.html etc).
-         --c sets the card's colour splash (olive, mustard, tomato, teal or navy). -->
-    <section class="work" id="work">
-      <div class="wrap">
-        <div class="section-head">
-          <h2 class="caps reveal">Selected work</h2>
-          <a class="caps text-link reveal" href="#contact">Get in touch</a>
+      <section class="block two-col" aria-label="Skills and clients">
+        <div>
+          <h2 class="label">What I do</h2>
+          <ul class="plain">
+            <li>Content design</li>
+            <li>Content strategy</li>
+            <li>Content systems and taxonomy</li>
+            <li>UX writing and tone of voice</li>
+            <li>Leading design squads</li>
+          </ul>
         </div>
-        <div class="grid">
-
-          <a class="project reveal" style="--c: var(--tomato); --c-text: var(--tomato-text)" href="flo.html">
-            <div class="thumb shot"><img src="images/flo-01.webp" alt="" loading="lazy"></div>
-            <p class="cat caps">Narrative design</p>
-            <h3 class="serif">Narrative content design at Flo Health</h3>
-            <p class="client-line">Flo Health</p>
-            <p>Onboarding that tells a story: a consistent voice, flows tailored to user archetypes, and a new app mascot.</p>
-          </a>
-
-          <a class="project reveal" style="--c: var(--olive); --c-text: var(--olive-text); --d:0.1s" href="perk.html">
-            <div class="thumb shot"><img src="images/perk-06.webp" alt="" loading="lazy"></div>
-            <p class="cat caps">Product content design</p>
-            <h3 class="serif">Driving bookings by listening to users at Perk</h3>
-            <p class="client-line">Perk</p>
-            <p>Cutting missed travel approvals by letting busy managers name a delegate — a term chosen through A/B testing.</p>
-          </a>
-
-          <a class="project reveal" style="--c: var(--navy); --c-text: var(--navy-text); --d:0.2s" href="price-alerts.html">
-            <div class="thumb shot"><img src="images/price-alerts-04.webp" alt="" loading="lazy"></div>
-            <p class="cat caps">Notifications & growth</p>
-            <h3 class="serif">Booking.com price alerts</h3>
-            <p class="client-line">Booking.com</p>
-            <p>Price alerts for flexible, price-sensitive travellers. Subscribers are much more likely to book — and pay less.</p>
-          </a>
-
-          <a class="project reveal" style="--c: var(--mustard); --c-text: var(--mustard-text)" href="flights-vision.html">
-            <div class="thumb shot"><img src="images/flights-vision-01.webp" alt="" loading="lazy"></div>
-            <p class="cat caps">Design leadership</p>
-            <h3 class="serif">Booking.com Flights design vision</h3>
-            <p class="client-line">Booking.com</p>
-            <p>Leading a vision project from 16 ideas to an actionable roadmap — 12+ features since explored, built or iterated on.</p>
-          </a>
-
-          <a class="project reveal" style="--c: var(--teal); --c-text: var(--teal-text); --d:0.1s" href="citybook.html">
-            <div class="thumb shot"><img src="images/citybook-01.webp" alt="" loading="lazy"></div>
-            <p class="cat caps">Tone of voice</p>
-            <h3 class="serif">Creative content for CityBook</h3>
-            <p class="client-line">Booking.com</p>
-            <p>A travel-companion voice for an app that helped travellers experience a city step by step, like a local.</p>
-          </a>
-
-          <a class="project reveal" style="--c: var(--tomato); --c-text: var(--tomato-text); --d:0.2s" href="eventix.html">
-            <div class="thumb shot"><img src="images/eventix-03.webp" alt="" loading="lazy"></div>
-            <p class="cat caps">UX writing</p>
-            <h3 class="serif">Signing up events at Eventix</h3>
-            <p class="client-line">Eventix</p>
-            <p>Making the case for UX writing at a start-up: tone of voice, an events taxonomy and a localisation process.</p>
-          </a>
-
+        <div>
+          <h2 class="label">Worked with</h2>
+          <ul class="plain">
+            <li>Flo Health</li>
+            <li>Perk</li>
+            <li>Booking.com</li>
+            <li>The Economist</li>
+            <li>Eventix</li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- CLIENTS — logo files live in the images folder; if one is missing, the name shows as text -->
-    <section class="clients" id="clients">
-      <div class="wrap">
-        <p class="caps reveal">Worked with</p>
-        <div class="logo-row">
-          <div class="logo reveal"><img src="images/logo-economist.webp" alt="The Economist" onerror="this.outerHTML='<span>The Economist</span>'"></div>
-          <div class="logo reveal" style="--d:.08s"><img src="images/logo-flo.webp" alt="Flo" onerror="this.outerHTML='<span>Flo</span>'"></div>
-          <div class="logo reveal" style="--d:.16s"><img src="images/logo-perk.webp" alt="Perk" onerror="this.outerHTML='<span>Perk</span>'"></div>
-          <div class="logo reveal" style="--d:.24s"><img src="images/logo-eventix.webp" alt="Eventix" onerror="this.outerHTML='<span>Eventix</span>'"></div>
-          <div class="logo reveal" style="--d:.32s"><img src="images/logo-booking.webp" alt="Booking.com" onerror="this.outerHTML='<span>Booking.com</span>'"></div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER + CONTACT (lime)
-       The form works automatically on Netlify; messages appear under "Forms" in your Netlify dashboard. -->
-  <footer id="contact">
-    <div class="wrap">
-      <div class="contact">
-        <div class="reveal">
-          <p class="kicker caps">Contact</p>
-          <h2 class="serif">Let's talk about your content.</h2>
-          <a class="email" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a>
-          <div class="icons">
-            <!-- Replace YOUR-HANDLE with your Instagram username, or delete this link -->
-            <a href="https://www.instagram.com/YOUR-HANDLE/" target="_blank" rel="noopener" aria-label="Instagram">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="mailto:tess.brumwell@gmail.com" aria-label="Email">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
-            </a>
-          </div>
-        </div>
-        <form class="reveal" style="--d:.15s" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <section class="block contact" id="contact" aria-labelledby="contact-h">
+        <h2 class="label" id="contact-h">Contact</h2>
+        <p class="lede">Have a content problem, a product that needs a voice, or a team that needs a lead? Get in touch.</p>
+        <p><a class="big-link" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a></p>
+        <!-- The form works automatically on Netlify; messages appear under "Forms" in your Netlify dashboard. -->
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="contact">
           <p class="hidden"><label>Leave this empty <input name="bot-field"></label></p>
-          <label class="caps" for="name">Name</label>
-          <input id="name" name="name" type="text" required>
-          <label class="caps" for="email">Email</label>
-          <input id="email" name="email" type="email" required>
-          <label class="caps" for="message">Message</label>
-          <textarea id="message" name="message" required></textarea>
-          <button class="caps" type="submit">Send message</button>
+          <div class="field-row">
+            <label>Name<input name="name" type="text" autocomplete="name" required></label>
+            <label>Email<input name="email" type="email" autocomplete="email" required></label>
+          </div>
+          <label>Message<textarea name="message" rows="5" required></textarea></label>
+          <button type="submit">Send message</button>
         </form>
-      </div>
-      <div class="footer-base caps">
-        <span>© <span id="yr">2026</span> tess brumwell-gaze</span>
-        <a href="#top" style="text-decoration:none">Back to top ↑</a>
-      </div>
-    </div>
-  </footer>
+      </section>
 
+      <footer class="colophon">
+        <span>© <span class="yr">2026</span> Tess Brumwell-Gaze</span>
+        <span>Set in Ronzino by Collletttivo</span>
+        <a href="#top">Back to top</a>
+      </footer>
+
+    </main>
+  </div>
   <script src="site.js"></script>
 </body>
 </html>
