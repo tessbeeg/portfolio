@@ -133,23 +133,17 @@ img { display: block; max-width: 100%; height: auto; }
 .work-name { display: grid; gap: 6px; }
 .work-client { font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
 
-/* About: sideways photo carousel */
-.carousel-nav { display: flex; gap: 8px; }
-.carousel-btn {
-  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--ink); background: transparent;
-  font: inherit; font-size: 18px; line-height: 1; cursor: pointer; color: var(--ink); transition: background .2s, color .2s, opacity .2s;
-}
-.carousel-btn:hover { background: var(--ink); color: #fff; }
-.carousel-btn:disabled { opacity: .3; cursor: default; background: transparent; color: var(--ink); }
-.carousel {
-  list-style: none; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
-  scroll-behavior: smooth; padding-bottom: 6px; margin-right: calc(clamp(22px, 3.4vw, 52px) * -1);
-  scrollbar-width: none; overscroll-behavior-x: contain;
-}
-.carousel::-webkit-scrollbar { display: none; }
-.carousel li { flex: none; scroll-snap-align: start; }
-.carousel li:last-child { padding-right: clamp(22px, 3.4vw, 52px); }
+/* About: photo strip that drifts sideways on its own, looping forever. Hover to pause. */
+.carousel { overflow: hidden; margin-right: calc(clamp(22px, 3.4vw, 52px) * -1); padding-bottom: 6px; }
+.carousel-track { list-style: none; display: flex; width: max-content; animation: drift var(--dur, 60s) linear infinite; }
+.carousel:hover .carousel-track { animation-play-state: paused; }
+.carousel li { flex: none; padding-right: 14px; }
 .carousel img { height: clamp(300px, 46vh, 460px); width: auto; border-radius: 10px; display: block; }
+@keyframes drift { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .carousel { overflow-x: auto; scrollbar-width: none; }
+  .carousel-track { animation: none; }
+}
 
 /* Logo row under the intro */
 .clients { margin-top: 44px; }
@@ -266,5 +260,5 @@ blockquote p + p { margin-top: 16px; }
   .column { height: 100%; overflow-y: auto; overscroll-behavior: contain; scroll-behavior: smooth; scrollbar-width: thin; }
 }
 @media (min-width: 901px) and (prefers-reduced-motion: reduce) {
-  .column, .carousel { scroll-behavior: auto; }
+  .column { scroll-behavior: auto; }
 }
