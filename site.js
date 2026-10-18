@@ -5,6 +5,7 @@ const poster = document.querySelector('.poster:not(.poster-cs)');
 if (poster && window.matchMedia('(min-width: 901px)').matches) {
   const img = poster.querySelector('.poster-preview img');
   const vid = poster.querySelector('.poster-preview video');
+  const dev = vid.parentElement; // phone frame by default, or a desktop screen
   const cap = poster.querySelector('.poster-preview figcaption');
   const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const show = (row) => {
@@ -15,10 +16,11 @@ if (poster && window.matchMedia('(min-width: 901px)').matches) {
         vid.innerHTML = `<source src="${d.video}.webm" type="video/webm"><source src="${d.video}.mp4" type="video/mp4">`;
         vid.dataset.current = d.video; if (d.poster) vid.poster = d.poster; vid.load();
       }
-      vid.hidden = false; img.hidden = true;
+      dev.classList.toggle('desktop', d.frame === 'desktop');
+      dev.hidden = false; img.hidden = true;
       vid.currentTime = 0; vid.play().catch(() => {});
     } else {
-      img.src = d.preview || d.poster; img.hidden = false; vid.hidden = true; vid.pause();
+      img.src = d.preview || d.poster; img.hidden = false; dev.hidden = true; vid.pause();
     }
     cap.textContent = d.title;
     poster.classList.add('previewing');
