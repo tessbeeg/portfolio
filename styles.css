@@ -38,6 +38,7 @@ body {
 }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .18em; }
 img { display: block; max-width: 100%; height: auto; }
+[hidden] { display: none !important; } /* anything marked hidden really disappears */
 :focus-visible { outline: 2px solid var(--sky-deep); outline-offset: 3px; border-radius: 4px; }
 .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 8px; z-index: 10; }
 .skip:focus { left: 12px; }
