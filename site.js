@@ -24,7 +24,7 @@ if (poster && window.matchMedia('(min-width: 901px)').matches) {
     poster.classList.add('previewing');
   };
   const hide = () => { poster.classList.remove('previewing'); vid.pause(); };
-  document.querySelectorAll('.work-row, .has-preview').forEach((row) => {
+  document.querySelectorAll('.work-row').forEach((row) => {
     row.addEventListener('mouseenter', () => show(row));
     row.addEventListener('focus', () => show(row));
     row.addEventListener('mouseleave', hide);
