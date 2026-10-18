@@ -51,7 +51,7 @@
           <circle class="bob" style="animation-delay:-5s" cx="530" cy="210" r="11" fill="#346799" stroke="none"/>
         </svg>
       </div>
-      <figure class="poster-preview"><img alt="" src="" hidden><figcaption></figcaption></figure>
+      <figure class="poster-preview"><img alt="" src="" hidden><video muted loop playsinline preload="none" hidden></video><figcaption></figcaption></figure>
       <p class="poster-foot">Content designer</p>
     </aside>
 
@@ -67,37 +67,37 @@
         <div class="label-row"><h2 class="label" id="work-h">Selected work</h2><span class="count">6 case studies</span></div>
         <ul class="work-list">
           <li>
-            <a class="work-row" href="flo.html">
+            <a class="work-row" href="flo.html" data-preview="flo-01.webp" data-title="Narrative content design at Flo Health">
               <span class="work-title">Narrative content design at Flo Health</span>
               <span class="tag">Narrative design</span>
             </a>
           </li>
           <li>
-            <a class="work-row" href="perk.html">
+            <a class="work-row" href="perk.html" data-preview="perk-06.webp" data-title="Driving bookings by listening to users at Perk">
               <span class="work-title">Driving bookings by listening to users at Perk</span>
               <span class="tag">Product content design</span>
             </a>
           </li>
           <li>
-            <a class="work-row" href="price-alerts.html">
+            <a class="work-row" href="price-alerts.html" data-preview="price-alerts-04.webp" data-title="Booking.com price alerts">
               <span class="work-title">Booking.com price alerts</span>
               <span class="tag">Notification design</span>
             </a>
           </li>
           <li>
-            <a class="work-row" href="flights-vision.html">
+            <a class="work-row" href="flights-vision.html" data-preview="flights-vision-01.webp" data-title="Booking.com Flights design vision">
               <span class="work-title">Booking.com Flights design vision</span>
               <span class="tag">Design leadership</span>
             </a>
           </li>
           <li>
-            <a class="work-row" href="citybook.html">
+            <a class="work-row" href="citybook.html" data-preview="citybook-01.webp" data-title="Creative content for CityBook">
               <span class="work-title">Creative content for CityBook</span>
               <span class="tag">Tone of voice</span>
             </a>
           </li>
           <li>
-            <a class="work-row" href="eventix.html">
+            <a class="work-row" href="eventix.html" data-preview="eventix-03.webp" data-title="Signing up events at Eventix">
               <span class="work-title">Signing up events at Eventix</span>
               <span class="tag">UX writing</span>
             </a>
@@ -122,7 +122,8 @@
             <li>Flo Health</li>
             <li>Perk</li>
             <li>Booking.com</li>
-            <li>The Economist</li>
+            <!-- Hover preview with a video: add data-video="name" (for name.mp4 and name.webm) and data-poster (a still) to any row -->
+            <li><span class="has-preview" tabindex="0" data-video="economist" data-poster="economist-poster.webp" data-title="The Economist app">The Economist</span></li>
             <li>Eventix</li>
           </ul>
         </div>

@@ -1,17 +1,30 @@
 document.querySelectorAll('.yr').forEach((el) => { el.textContent = new Date().getFullYear(); });
 
-// Homepage: hovering (or tabbing to) a project shows its picture in the blue panel
+// Homepage: hovering (or tabbing to) a project shows its picture, or plays its video, in the blue panel
 const poster = document.querySelector('.poster:not(.poster-cs)');
 if (poster && window.matchMedia('(min-width: 901px)').matches) {
   const img = poster.querySelector('.poster-preview img');
+  const vid = poster.querySelector('.poster-preview video');
   const cap = poster.querySelector('.poster-preview figcaption');
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const show = (row) => {
-    img.src = row.dataset.preview; img.hidden = false;
-    cap.textContent = row.dataset.title;
+    const d = row.dataset;
+    if (d.video && !still) {
+      if (vid.dataset.current !== d.video) {
+        // offer both formats; each browser plays the first one it supports
+        vid.innerHTML = `<source src="${d.video}.webm" type="video/webm"><source src="${d.video}.mp4" type="video/mp4">`;
+        vid.dataset.current = d.video; if (d.poster) vid.poster = d.poster; vid.load();
+      }
+      vid.hidden = false; img.hidden = true;
+      vid.currentTime = 0; vid.play().catch(() => {});
+    } else {
+      img.src = d.preview || d.poster; img.hidden = false; vid.hidden = true; vid.pause();
+    }
+    cap.textContent = d.title;
     poster.classList.add('previewing');
   };
-  const hide = () => poster.classList.remove('previewing');
-  document.querySelectorAll('.work-row').forEach((row) => {
+  const hide = () => { poster.classList.remove('previewing'); vid.pause(); };
+  document.querySelectorAll('.work-row, .has-preview').forEach((row) => {
     row.addEventListener('mouseenter', () => show(row));
     row.addEventListener('focus', () => show(row));
     row.addEventListener('mouseleave', hide);
