@@ -32,6 +32,28 @@ if (poster && window.matchMedia('(min-width: 901px)').matches) {
   });
 }
 
+// About carousel: arrows move one photo at a time and switch off at either end
+document.querySelectorAll('.about').forEach((sec) => {
+  const track = sec.querySelector('.carousel');
+  const [prev, next] = sec.querySelectorAll('.carousel-btn');
+  const starts = () => [...track.children].map((li) => li.offsetLeft - track.firstElementChild.offsetLeft);
+  const update = () => {
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+  };
+  const go = (dir) => {
+    const x = track.scrollLeft, all = starts();
+    const target = dir > 0 ? all.find((v) => v > x + 2) : [...all].reverse().find((v) => v < x - 2);
+    track.scrollTo({ left: target ?? (dir > 0 ? track.scrollWidth : 0), behavior: 'smooth' });
+  };
+  prev.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  track.querySelectorAll('img').forEach((img) => img.addEventListener('load', update));
+  update();
+});
+
 // "Back to top" scrolls the right-hand column (desktop) or the page (phones)
 document.querySelectorAll('a[href="#top"]').forEach((a) => {
   a.addEventListener('click', (ev) => {
