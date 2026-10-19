@@ -193,6 +193,17 @@ img { display: block; max-width: 100%; height: auto; }
 .tag { display: inline-block; background: var(--lime); color: var(--ink); font-size: 13px; font-weight: 500; padding: 2px 9px 3px; border-radius: 999px; }
 
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+/* Testimonial: a big quote mark sets it apart, no heading needed */
+.testimonial figure { position: relative; padding-top: clamp(64px, 6vw, 92px); }
+.testimonial figure::before {
+  content: "\201C"; position: absolute; top: 0; left: -.04em;
+  font-size: clamp(150px, 13vw, 220px); line-height: .8; font-weight: 700; color: var(--sky);
+}
+.testimonial blockquote { border: 0; padding: 0; margin: 0; }
+.testimonial blockquote p { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.16; font-weight: 500; letter-spacing: -.025em; max-width: 22ch; }
+.testimonial figcaption { margin-top: 24px; color: var(--muted); }
+.testimonial figcaption::before { content: "\2014\00a0"; }
+.testimonial .t-name { color: var(--ink); font-weight: 500; }
 .plain { list-style: none; }
 .plain li { padding: 9px 0; border-bottom: 1px solid var(--rule); }
 .plain li:first-child { border-top: 1px solid var(--ink); }
