@@ -193,6 +193,12 @@ img { display: block; max-width: 100%; height: auto; }
 .tag { display: inline-block; background: var(--lime); color: var(--ink); font-size: 13px; font-weight: 500; padding: 2px 9px 3px; border-radius: 999px; }
 
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+/* About: text beside one photo (stacked on phones) */
+.about-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); gap: clamp(22px, 3vw, 40px); align-items: start; }
+.about-grid .about-text { margin: 0; }
+.about-photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; display: block; }
+@media (max-width: 560px) { .about-grid { grid-template-columns: 1fr; } .about-photo { max-width: 340px; } }
+
 /* Testimonial: a big quote mark sets it apart, no heading needed */
 .testimonial figure { position: relative; padding-top: clamp(64px, 6vw, 92px); }
 .testimonial figure::before {
