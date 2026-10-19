@@ -92,7 +92,9 @@ img { display: block; max-width: 100%; height: auto; }
 /* Locked case study: overview stays public, the write-up opens with a password */
 .lock-card { background: var(--lime); border-radius: var(--radius); padding: clamp(26px, 3.4vw, 44px); }
 .cs-body .lock-card + * { margin-top: 0; }
-.lock-title { font-size: clamp(26px, 2.4vw, 36px); line-height: 1.1; font-weight: 500; letter-spacing: -.025em; margin: 0 0 12px; max-width: 16ch; }
+.lock-title { font-size: clamp(26px, 2.4vw, 36px); line-height: 1.1; font-weight: 500; letter-spacing: -.025em; margin: 0; max-width: 16ch; }
+.lock-title a { text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .lock-card p { max-width: 42ch; }
 .unlock { margin-top: 22px; }
 .unlock label { display: block; font-size: 15px; font-weight: 500; margin-bottom: 8px; }
@@ -196,8 +198,11 @@ img { display: block; max-width: 100%; height: auto; }
 /* About: text beside one photo (stacked on phones) */
 .about-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); gap: clamp(22px, 3vw, 40px); align-items: start; }
 .about-grid .about-text { margin: 0; }
-.about-photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; display: block; }
+.about-photo { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; display: block; }
 @media (max-width: 560px) { .about-grid { grid-template-columns: 1fr; } .about-photo { max-width: 340px; } }
+
+.contact-links { display: flex; flex-wrap: wrap; gap: 6px 32px; margin: 22px 0 34px; }
+.contact-links .big-link { margin: 0; font-size: clamp(20px, 1.7vw, 26px); }
 
 /* Testimonial: a big quote mark sets it apart, no heading needed */
 .testimonial figure { position: relative; padding-top: clamp(64px, 6vw, 92px); }

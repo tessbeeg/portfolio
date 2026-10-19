@@ -30,8 +30,9 @@
         <h1>Innovating at The Economist</h1>
       </div>
       <dl class="facts">
-        <div><dt>Client</dt><dd>The Economist</dd></div>
-        <div><dt>Status</dt><dd>Full case study coming soon</dd></div>
+        <div><dt>Overview</dt><dd>LLM feature design for Pro users. Goal: an increase in Pro subscriptions and loyalty.</dd></div>
+        <div><dt>Impact</dt><dd>Launch of a key strategic product feature.</dd></div>
+        <div><dt>My role</dt><dd>Rapid prototyping, AI and conversation design as the content designer in a cross-functional team, in close collaboration with Editorial stakeholders.</dd></div>
       </dl>
     </aside>
 
@@ -42,19 +43,17 @@
             <video class="cs-video" autoplay muted loop playsinline poster="economist-poster.webp" aria-label="A walk through The Economist app"><source src="economist.webm" type="video/webm"><source src="economist.mp4" type="video/mp4"></video>
           </div>
         </figure>
-        <section class="locked" data-locked="SsZtnQPlC6zM/PktE67IXmByv+qSpFYZR37lRitc2mhEth7P30b7Hbc190J+lmJb8uCzF+JaYLjylIKcbg16X6AgGpGWprFl+DUJUyPnodRvxOn9eDVI+iR8vppgpoEzMU9vjg==" data-iter="250000">
+        <section class="locked" data-locked="4DCp5GySOyP81oyw19CkKxXYnFdoZHNxKkCWJrRxibIKuU3IPw7RDq5dE75YLv0wVXtmGUY1d7DXSoy9yV3qid//UNwrbZYd9auc4QkVlD86fU/H5/V/ij5Aen9QuY5H/4ekSw==" data-iter="250000">
           <div class="lock-card">
-            <h2 class="lock-title">Full case study available upon request</h2>
-            <p>Enter the password to read the full case study, or get in touch and I&rsquo;ll send it to you.</p>
+            <h2 class="lock-title"><a href="#contact">Reach out to me</a> to see the full case study</h2>
             <form class="unlock">
-              <label for="pw">Password</label>
+              <label for="pw" class="sr-only">Password</label>
               <div class="unlock-row">
-                <input id="pw" type="password" autocomplete="current-password" required>
+                <input id="pw" type="password" autocomplete="current-password" placeholder="Password" required>
                 <button type="submit">Unlock</button>
               </div>
               <p class="unlock-error" role="alert" hidden>That password didn&rsquo;t work. Try again?</p>
             </form>
-            <a class="lock-ask" href="#contact">Request access</a>
           </div>
         </section>
       </article>
@@ -66,8 +65,10 @@
 
       <section class="block contact" id="contact" aria-labelledby="contact-h">
         <h2 class="label" id="contact-h">Contact</h2>
-        <p class="lede">Have a content problem, a product that needs a voice, or a team that needs a lead? Get in touch.</p>
-        <p><a class="big-link" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a></p>
+        <p class="contact-links">
+          <a class="big-link" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a>
+          <a class="big-link" href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">in/tessbrumwellgaze</a>
+        </p>
         <!-- The form works automatically on Netlify; messages appear under "Forms" in your Netlify dashboard. -->
         <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="contact">
