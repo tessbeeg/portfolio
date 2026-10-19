@@ -52,7 +52,7 @@ img { display: block; max-width: 100%; height: auto; }
   background: var(--sheet); border-radius: var(--radius);
   box-shadow: 0 calc(var(--gap) * -1) 0 var(--gap) var(--ground); /* hides content scrolling behind the gap */
 }
-.bar-name { font-weight: 500; text-decoration: none; letter-spacing: -.01em; }
+.bar-name { font-size: 22px; font-weight: 700; text-decoration: none; letter-spacing: -.035em; }
 .bar nav { display: flex; gap: 28px; }
 .bar nav a { text-decoration: none; color: var(--muted); }
 .bar nav a:hover { color: var(--ink); }
@@ -85,6 +85,35 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* The illustration: it rises in once, then each piece bobs gently */
 .poster-art { position: absolute; inset: 0; display: grid; place-items: center; padding: 8% 7%; transition: opacity .35s ease; }
+
+.notfound { max-width: 720px; margin: 0 auto; padding: 18vh 24px; }
+.notfound h1 { font-size: clamp(40px, 6vw, 80px); letter-spacing: -.04em; line-height: 1; margin-bottom: 18px; }
+
+/* Locked case study: overview stays public, the write-up opens with a password */
+.lock-card { background: var(--lime); border-radius: var(--radius); padding: clamp(26px, 3.4vw, 44px); }
+.cs-body .lock-card + * { margin-top: 0; }
+.lock-title { font-size: clamp(26px, 2.4vw, 36px); line-height: 1.1; font-weight: 500; letter-spacing: -.025em; margin: 0 0 12px; max-width: 16ch; }
+.lock-card p { max-width: 42ch; }
+.unlock { margin-top: 22px; }
+.unlock label { display: block; font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+.unlock-row { display: flex; gap: 8px; max-width: 420px; }
+.unlock input { flex: 1; min-width: 0; font: inherit; padding: 11px 14px; border: 1px solid var(--ink); border-radius: 10px; background: #fff; }
+.unlock button { font: inherit; font-weight: 500; padding: 11px 20px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; cursor: pointer; }
+.unlock button:hover { background: var(--sky-deep); }
+.unlock-error { margin-top: 10px; font-size: 15px; }
+.lock-ask { display: inline-block; margin-top: 20px; font-weight: 500; }
+.locked.opening { opacity: .5; }
+
+/* Typed headline that gets scribbled out and rewritten */
+.rewrite { position: relative; width: 100%; max-width: 620px; }
+.rewrite p { margin: 0; }
+.draft { font-size: clamp(28px, 3.4vw, 50px); line-height: 1.12; font-weight: 500; letter-spacing: -.025em; max-width: 15ch; transition: opacity .6s ease; min-height: 3.36em; } /* room for three lines, so nothing jumps while typing */
+.draft.struck { opacity: .55; }
+.final { font-size: clamp(64px, 8.4vw, 136px); line-height: .95; font-weight: 700; letter-spacing: -.05em; margin-top: .22em !important; min-height: .95em; }
+.caret { display: inline-block; width: .06em; min-width: 2px; height: .9em; margin-left: .04em; background: currentColor; vertical-align: -.08em; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.rewrite .scribble { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; overflow: visible; pointer-events: none; animation: none; }
+.scribble path { fill: none; stroke: var(--tomato); stroke-linecap: round; stroke-linejoin: round; }
 .poster-art svg { width: 100%; max-width: 640px; height: auto; overflow: visible; animation: rise 1.1s cubic-bezier(.2, .7, .1, 1) both; }
 @keyframes rise { from { transform: translateY(6%); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(.6deg); } }
@@ -132,12 +161,15 @@ img { display: block; max-width: 100%; height: auto; }
 .work-list { list-style: none; border-top: 1px solid var(--ink); }
 .work-list li + li { border-top: 1px solid var(--rule); }
 .work-row {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 10px 24px;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 14px 28px;
   padding: 26px 0; text-decoration: none; transition: padding-left .25s ease;
 }
 .work-row:hover, .work-row:focus-visible { padding-left: 10px; }
 .work-title { font-size: clamp(23px, 2vw, 30px); line-height: 1.15; font-weight: 500; letter-spacing: -.025em; max-width: 21ch; }
-.work-row .tag { flex: none; transform: translateY(-3px); }
+.tags, .cs-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.work-row .tags { flex: none; flex-direction: column; align-items: flex-end; transform: translateY(-3px); }
+
+/* Skill tags: all lime. (Each tag still carries its group class, tag-lead / tag-innov / tag-grow / tag-craft, if colours are wanted again.) */
 .work-name { display: grid; gap: 6px; }
 .work-client { font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
 
@@ -237,6 +269,7 @@ blockquote p + p { margin-top: 16px; }
   .split { grid-template-columns: 1fr; }
   .poster { position: relative; top: 0; height: 36vh; min-height: 240px; }
   .poster-art { padding: 52px 9% 14px; }
+  .draft { font-size: 7vw; } .final { font-size: 15vw; }
   .poster-type span { font-size: 46vw; }
   .poster-preview { display: none; }
   .poster-cs { height: auto; min-height: 0; }
@@ -249,12 +282,13 @@ blockquote p + p { margin-top: 16px; }
   .bar nav a { font-size: 15px; }
   .two-col, .field-row { grid-template-columns: 1fr; }
   .work-row { flex-direction: column; align-items: flex-start; padding: 22px 0; }
+  .work-row .tags { flex-direction: row; align-items: flex-start; transform: none; }
   .facts div { grid-template-columns: 1fr; gap: 2px; }
   .cs-fig .frame.pair { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .poster-type span, .poster-art svg, .bob { animation: none; }
+  .poster-type span, .poster-art svg, .bob, .caret { animation: none; }
   .poster, .poster-type, .poster-art, .poster-preview, .work-row { transition: none; }
 }
 
