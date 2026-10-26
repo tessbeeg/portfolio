@@ -1,165 +1,238 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tess Brumwell-Gaze — content designer</title>
-  <meta name="description" content="Tess Brumwell-Gaze designs content and the strategy behind it.">
-  <link rel="preload" href="Ronzino-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="Ronzino-Medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tess Brumwell-Gaze — content designer</title>
+<style>
+html { scroll-behavior: smooth; }
+@font-face { font-family: "Ronzino"; src: url("Ronzino-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Ronzino"; src: url("Ronzino-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Ronzino"; src: url("Ronzino-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+/* A quiet, neutral frame so the work and the brands carry the colour */
+:root { --bg: #f6f5f2; --ink: #111; --muted: #6b6a66; --tile: #e9e8e4; --gutter: clamp(16px, 3vw, 40px); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: "Ronzino", "Helvetica Neue", Arial, sans-serif; font-size: 17px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+/* Masthead: a floating "liquid glass" bar that stays at the top as you scroll */
+.bar {
+  position: sticky; top: 12px; z-index: 40;
+  display: flex; justify-content: space-between; align-items: center;
+  margin: 12px var(--gutter) 0; padding: 12px 14px 12px 22px; border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255,255,255,.62), rgba(255,255,255,.28));
+  -webkit-backdrop-filter: blur(18px) saturate(180%); backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.7);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -1px 0 rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.08);
+}
+.bar nav a { padding: 8px 12px; border-radius: 999px; }
+.bar nav a:hover { background: rgba(255,255,255,.7); }
+.bar-name { font-size: 20px; font-weight: 700; letter-spacing: -.03em; text-decoration: none; }
+.bar nav { display: flex; gap: 4px; }
+.bar nav a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.bar nav a:hover { color: var(--ink); }
+
+/* Intro fills the first screen; the collage starts just below it */
+.intro { min-height: calc(100svh - 80px); padding: clamp(40px, 7vw, 96px) var(--gutter) 28px; display: flex; flex-direction: column; gap: 28px; }
+.intro h1 { font-size: clamp(40px, 5.4vw, 84px); line-height: .98; font-weight: 500; letter-spacing: -.045em; max-width: 13ch; }
+/* Kinetic headline
+   1. The first words float up one by one with a soft, springy wobble, at an uneven, relaxed pace.
+   2. A short breath, then "strategy behind it" is placed letter by letter: each letter drops in at a tilt and settles.
+   3. A hand-drawn squiggle underlines "strategy". */
+.intro h1 .w { display: inline-block; opacity: 0; transform-origin: 50% 100%;
+  animation: float-in .85s cubic-bezier(.3,1.45,.5,1) forwards; animation-delay: var(--d); }
+@keyframes float-in {
+  0% { opacity: 0; transform: translateY(.55em) rotate(var(--r, -4deg)); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+.intro h1 .hl .w { opacity: 1; animation: none; position: relative; white-space: nowrap; }
+.intro h1 .ch { display: inline-block; opacity: 0; transform-origin: 50% 90%;
+  animation: drop-in .7s cubic-bezier(.25,1.6,.45,1) forwards; animation-delay: var(--d); }
+@keyframes drop-in {
+  0% { opacity: 0; transform: translateY(-.7em) rotate(var(--r)) scale(.9); }
+  45% { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+.squiggle { position: absolute; left: -2%; right: -2%; bottom: -.16em; width: 104%; height: .24em; overflow: visible; }
+.squiggle path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0;
+  animation: draw .9s cubic-bezier(.6,0,.3,1) forwards; animation-delay: var(--d); }
+@keyframes draw { from { opacity: 1; stroke-dashoffset: 1; } to { opacity: 1; stroke-dashoffset: 0; } }
+
+/* "Welcome" nudge at the bottom of the first screen */
+.welcome { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 500; opacity: 0; animation: fade-in .8s ease 3.6s forwards; }
+.welcome .arrow { display: inline-grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--ink); border-radius: 50%; font-size: 18px; animation: nudge 1.8s ease-in-out 4.4s infinite; }
+.welcome:hover .arrow { background: var(--ink); color: #fff; }
+@keyframes fade-in { to { opacity: 1; } }
+@keyframes nudge { 0%, 100% { transform: none; } 50% { transform: translateY(6px); } }
+
+.logos { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 18px 36px; opacity: 0; animation: logos-in .8s ease 3.3s forwards; } /* appear once the headline has settled */
+@keyframes logos-in { to { opacity: .55; } }
+.logos img { height: var(--h); width: auto; display: block; }
+
+/* The collage: Pinterest-style columns of different heights */
+.collage { columns: 4 260px; column-gap: 16px; padding: 0 var(--gutter) 80px; }
+.tile { display: block; break-inside: avoid; margin-bottom: 26px; text-decoration: none; }
+.tile-media { position: relative; border-radius: 18px; overflow: hidden; background: var(--tile); }
+.tile-media img, .tile-media video { display: block; width: 100%; height: auto; transition: transform .6s cubic-bezier(.2,.7,.1,1); }
+.tile-media video { aspect-ratio: 3 / 4; object-fit: cover; object-position: top; }
+/* Hover: the picture dims and the title of the work rises in */
+.tile-media::after { content: ""; position: absolute; inset: 0; background: rgba(17,17,17,.22); opacity: 0; transition: opacity .35s; }
+.tile-info { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 1; padding: 13px 15px 14px; border-radius: 12px;
+  background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--ink);
+  box-shadow: 0 6px 20px rgba(0,0,0,.12); opacity: 0; transform: translateY(10px); transition: opacity .35s, transform .35s; }
+.tile-title { font-size: 17px; line-height: 1.2; font-weight: 500; letter-spacing: -.015em; }
+.tile-client { font-size: 14px; color: var(--muted); margin-top: 2px; }
+.tile-go { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.tile:hover .tile-media::after, .tile:focus-visible .tile-media::after { opacity: 1; }
+.tile:hover .tile-info, .tile:focus-visible .tile-info { opacity: 1; transform: none; }
+.tile:hover .tile-media img, .tile:hover .tile-media video { transform: scale(1.03); }
+.tile:focus-visible { outline: none; }
+.tile:focus-visible .tile-media { outline: 2px solid var(--ink); outline-offset: 3px; }
+.tile { margin-bottom: 16px; }
+div.tile { cursor: default; }
+
+/* Floating contact button */
+.fab { position: fixed; right: clamp(14px, 2.4vw, 32px); bottom: clamp(14px, 2.4vw, 32px); z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.fab-btn { display: inline-flex; align-items: center; gap: 10px; font: inherit; font-weight: 500; font-size: 16px; padding: 14px 22px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.18); transition: transform .25s cubic-bezier(.3,1.4,.5,1); }
+.fab-btn:hover { transform: translateY(-2px) rotate(-1.5deg); }
+.fab-dot { width: 8px; height: 8px; border-radius: 50%; background: #7ee08a; box-shadow: 0 0 0 0 rgba(126,224,138,.6); animation: ping 2.4s ease-out infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(126,224,138,.6); } 70%, 100% { box-shadow: 0 0 0 9px rgba(126,224,138,0); } }
+.fab-card { background: #fff; border-radius: 18px; padding: 18px 20px; box-shadow: 0 16px 40px rgba(0,0,0,.16); display: grid; gap: 6px; min-width: 250px; transform-origin: bottom right; animation: pop .28s cubic-bezier(.3,1.4,.5,1); }
+.fab-card[hidden] { display: none; }
+.fab-hello { font-size: 14px; color: var(--muted); margin-bottom: 2px; }
+.fab-link { font-weight: 500; font-size: 17px; text-decoration: none; }
+.fab-link:hover { text-decoration: underline; }
+@keyframes pop { from { opacity: 0; transform: scale(.9) translateY(6px); } }
+
+@media (max-width: 700px) {
+  .bar { gap: 6px; top: 8px; margin: 8px 10px 0; padding: 8px 8px 8px 16px; } .bar-name { font-size: 16px; white-space: nowrap; }
+  .bar nav { gap: 0; } .bar nav a { font-size: 13.5px; padding: 6px 7px; }
+  .intro { min-height: calc(100svh - 64px); padding-bottom: 36px; }
+  .intro h1 { font-size: 12.4vw; }
+  .collage { columns: 2; column-gap: 12px; }
+  /* phones have no hover: show a small title label on each tile instead */
+  .tile-info { opacity: 1; transform: none; left: 7px; right: 7px; bottom: 7px; padding: 8px 10px; border-radius: 9px; }
+  .tile-media::after { display: none; }
+  .tile-title { font-size: 13px; } .tile-client, .tile-go { display: none; }
+  .bar nav a[href*="linkedin"] { display: none; } /* LinkedIn sits in the Contact me button on phones */
+  .fab-btn { padding: 12px 18px; font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile-media img, .tile-media video, .tile-info { transition: none; } .fab-dot, .fab-card { animation: none; }
+  .intro h1 .w, .intro h1 .ch, .squiggle path, .welcome, .welcome .arrow { animation: none; opacity: 1; transform: none; stroke-dashoffset: 0; }
+  .logos { animation: none; opacity: .55; }
+}
+</style>
 </head>
 <body>
-  <a class="skip" href="#content">Skip to content</a>
   <header class="bar">
     <a class="bar-name" href="index.html">tess brumwell-gaze</a>
-    <nav aria-label="Main">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">LinkedIn</a>
-    </nav>
+    <nav aria-label="Main"><a href="#work">Work</a><a href="#contact" data-open-contact>Contact</a><a href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">LinkedIn</a></nav>
   </header>
 
-  <div class="split" id="top">
+  <section class="intro">
+    <h1 aria-label="Designing content and the strategy behind it">
+      <span aria-hidden="true">
+        <span class="w" style="--d:.25s;--r:-5deg">Designing</span> <span class="w" style="--d:.42s;--r:3deg">content</span> <span class="w" style="--d:.66s;--r:-2deg">and</span> <span class="w" style="--d:.78s;--r:4deg">the</span>
+        <span class="hl"><span class="w">strategy<svg class="squiggle" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" style="--d:2.6s" d="M1 6 C 9 1, 15 9, 23 5 S 37 1, 45 6 S 60 9, 68 4 S 84 2, 99 6"/></svg></span> <span class="w">behind</span> <span class="w">it</span></span>
+      </span>
+    </h1>
+    <ul class="logos" aria-label="Worked with">
+      <li style="--h:30px"><img src="mark-economist.webp" alt="The Economist"></li>
+      <li style="--h:26px"><img src="mark-flo.webp" alt="Flo Health"></li>
+      <li style="--h:26px"><img src="mark-perk.webp" alt="Perk"></li>
+      <li style="--h:26px"><img src="mark-booking.webp" alt="Booking.com"></li>
+      <li style="--h:20px"><img src="mark-eventix.webp" alt="Eventix"></li>
+    </ul>
+    <a class="welcome" href="#work">Welcome, take a look around <span class="arrow" aria-hidden="true">↓</span></a>
+  </section>
 
-    <!-- LEFT: the poster panel. Hovering a project swaps in its image. -->
-    <aside class="poster" aria-hidden="true">
-      <!-- The speech bubble illustration from the first version of the site -->
-      <div class="poster-art">
-        <svg viewBox="0 0 560 400" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
-          <path class="bob" style="animation-delay:-2s" d="M30 330 C 90 280, 120 380, 180 330 S 270 290, 300 350" stroke="#e8edb4" stroke-width="7"/>
-          <g class="bob" style="animation-delay:-1s">
-            <rect x="52" y="150" width="190" height="140" rx="8" fill="#4f6b2a" transform="rotate(-7 147 220)"/>
-            <rect x="66" y="138" width="190" height="140" rx="8" fill="#f6f4ec" transform="rotate(-3 161 208)"/>
-            <path d="M92 175 h120 M92 198 h135 M92 221 h95 M92 244 h120" transform="rotate(-3 161 208)"/>
-          </g>
-          <g class="bob">
-            <path d="M262 40 h220 a30 30 0 0 1 30 30 v62 a30 30 0 0 1 -30 30 h-150 l-34 30 l6 -30 h-42 a30 30 0 0 1 -30 -30 v-62 a30 30 0 0 1 30 -30 z" fill="#f2c94c"/>
-            <circle cx="322" cy="101" r="7" fill="#000" stroke="none"/>
-            <circle cx="372" cy="101" r="7" fill="#000" stroke="none"/>
-            <circle cx="422" cy="101" r="7" fill="#000" stroke="none"/>
-          </g>
-          <g class="bob" style="animation-delay:-3.5s">
-            <g transform="rotate(8 420 290)">
-              <path d="M350 220 h140 v110 l-30 30 h-110 z" fill="#e4572e"/>
-              <path d="M490 330 h-30 v30" fill="#b8411f"/>
-              <path d="M372 252 h96 M372 276 h80 M372 300 h60" stroke="#fff" stroke-width="3"/>
-            </g>
-          </g>
-          <circle class="bob" style="animation-delay:-5s" cx="530" cy="210" r="11" fill="#346799" stroke="none"/>
-        </svg>
-      </div>
-      <figure class="poster-preview"><img alt="" src="" hidden><div class="device" hidden><video muted loop playsinline preload="none"></video></div><figcaption></figcaption></figure>
-    </aside>
+  <!-- The collage is filled from collage.js: edit that file to add or change tiles -->
+  <main class="collage" id="work" style="scroll-margin-top: 24px" aria-label="Selected work"></main>
 
-    <!-- RIGHT: the scrolling column -->
-    <main class="column" id="content">
-
-      <section class="block intro" id="intro">
-        <h1 class="lede-xl">Designing content and the strategy behind it</h1>
-        <div class="clients">
-          <h2 class="label">Worked with</h2>
-          <!-- Black versions of each logo. --h sets each one's height so they look evenly sized. -->
-          <ul class="logo-row">
-            <li style="--h: 34px"><img src="mark-economist.webp" alt="The Economist"></li>
-            <li style="--h: 30px"><img src="mark-flo.webp" alt="Flo Health"></li>
-            <li style="--h: 30px"><img src="mark-perk.webp" alt="Perk"></li>
-            <li style="--h: 30px"><img src="mark-booking.webp" alt="Booking.com"></li>
-            <li style="--h: 23px"><img src="mark-eventix.webp" alt="Eventix"></li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="block" id="work" aria-labelledby="work-h">
-        <div class="label-row"><h2 class="label" id="work-h">Selected work</h2><span class="count">6 projects</span></div>
-        <ul class="work-list">
-          <li>
-            <a class="work-row" href="economist.html" data-preview="economist-poster.webp" data-video="economist" data-title="Innovating at The Economist">
-              <span class="work-name"><span class="work-client">The Economist</span><span class="work-title">Innovating at The Economist</span></span>
-              <span class="tags"><span class="tag tag-innov">Rapid prototyping</span><span class="tag tag-innov">AI and conversation design</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="work-row" href="flo.html" data-preview="flo-poster.webp" data-video="flo" data-title="Growing loyalty at Flo">
-              <span class="work-name"><span class="work-client">Flo Health</span><span class="work-title">Growing loyalty at Flo</span></span>
-              <span class="tags"><span class="tag tag-craft">Narrative design</span><span class="tag tag-grow">New user segments</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="work-row" href="perk.html" data-preview="perk-poster.webp" data-video="perk" data-title="Cutting friction at Perk">
-              <span class="work-name"><span class="work-client">Perk</span><span class="work-title">Cutting friction at Perk</span></span>
-              <span class="tags"><span class="tag tag-craft">Product content design</span><span class="tag tag-craft">Site architecture</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="work-row" href="price-alerts.html" data-preview="price-alerts-poster.webp" data-video="price-alerts" data-title="Converting price watchers at Booking.com">
-              <span class="work-name"><span class="work-client">Booking.com</span><span class="work-title">Converting price watchers at Booking.com</span></span>
-              <span class="tags"><span class="tag tag-craft">Notification design</span><span class="tag tag-lead">Cross-functional strategy</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="work-row" href="flights-vision.html" data-preview="flights-vision-poster.webp" data-video="flights-vision" data-frame="desktop" data-title="Owning the vision at Booking.com">
-              <span class="work-name"><span class="work-client">Booking.com</span><span class="work-title">Owning the vision at Booking.com</span></span>
-              <span class="tags"><span class="tag tag-lead">Design leadership</span><span class="tag tag-lead">Roadmapping</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="work-row" href="eventix.html" data-preview="eventix-poster.webp" data-video="eventix" data-title="Growing event sign-ups at Eventix">
-              <span class="work-name"><span class="work-client">Eventix</span><span class="work-title">Growing event sign-ups at Eventix</span></span>
-              <span class="tags"><span class="tag tag-craft">UX writing</span><span class="tag tag-craft">End-to-end design</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <!-- ABOUT: photo carousel. Scrolls by itself and pauses on hover. Add, remove or reorder <li> items freely. -->
-      <section class="block about" id="about" aria-labelledby="about-h">
-        <h2 class="label" id="about-h">About</h2>
-        <div class="about-grid">
-          <!-- About text: edit freely -->
-          <p class="lede about-text">I turn scattered ideas into strategy, work across agile teams and departments, and create brand voices that carry through email to errors. Rewarding to me means building products that empower people.</p>
-          <img class="about-photo" src="about-portrait.webp" alt="Tess smiling on a sunny Italian street" loading="lazy">
-        </div>
-      </section>
-
-      <!-- Testimonial. To add another, copy the <figure> ... </figure> block. -->
-      <section class="block testimonial" aria-label="Testimonial">
-        <figure>
-          <blockquote>
-            <p>An insights-driven design partner who balances proactive leadership with high-speed execution</p>
-          </blockquote>
-          <figcaption><span class="t-name">Kelly van der Veen</span>, Senior Product Manager, Jan 2026</figcaption>
-        </figure>
-      </section>
-
-      <section class="block contact" id="contact" aria-labelledby="contact-h">
-        <h2 class="label" id="contact-h">Contact</h2>
-        <p class="contact-links">
-          <a class="big-link" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a>
-          <a class="big-link" href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">in/tessbrumwellgaze</a>
-        </p>
-        <!-- The form works automatically on Netlify; messages appear under "Forms" in your Netlify dashboard. -->
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact">
-          <p class="hidden"><label>Leave this empty <input name="bot-field"></label></p>
-          <div class="field-row">
-            <label>Name<input name="name" type="text" autocomplete="name" required></label>
-            <label>Email<input name="email" type="email" autocomplete="email" required></label>
-          </div>
-          <label>Message<textarea name="message" rows="5" required></textarea></label>
-          <button type="submit">Send message</button>
-        </form>
-      </section>
-
-      <footer class="colophon">
-        <span>© <span class="yr">2026</span> Tess Brumwell-Gaze</span>
-        <span>Set in Ronzino by Collletttivo</span>
-        <a href="#top">Back to top</a>
-      </footer>
-
-    </main>
+  <!-- Floating contact button: always on screen, sits over the content -->
+  <div class="fab" id="fab">
+    <div class="fab-card" id="fab-card" role="dialog" aria-label="Contact Tess" hidden>
+      <p class="fab-hello">Let&rsquo;s talk</p>
+      <a class="fab-link" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a>
+      <a class="fab-link" href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <button class="fab-btn" id="fab-btn" type="button" aria-expanded="false" aria-controls="fab-card"><span class="fab-dot" aria-hidden="true"></span>Contact me</button>
   </div>
-  <script src="site.js"></script>
+<script src="collage.js"></script>
+<script>
+// Build the collage from collage.js
+(function () {
+  var board = document.getElementById('work'); if (!board || !window.COLLAGE) return;
+  var esc = function (t) { return String(t || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  board.innerHTML = window.COLLAGE.map(function (t) {
+    var media = t.video
+      ? '<video muted loop playsinline preload="none" poster="' + esc(t.video) + '-poster.webp" aria-label="' + esc(t.alt) + '"><source src="' + esc(t.video) + '.webm" type="video/webm"><source src="' + esc(t.video) + '.mp4" type="video/mp4"></video>'
+      : '<img src="' + esc(t.image) + '" alt="' + esc(t.alt) + '" loading="lazy">';
+    var info = '<div class="tile-info"><p class="tile-title">' + esc(t.title) + '</p><p class="tile-client">' + esc(t.client) + '</p>' + (t.link ? '<span class="tile-go">View case study ↗</span>' : '') + '</div>';
+    var inner = '<div class="tile-media">' + media + info + '</div>';
+    return t.link ? '<a class="tile" href="' + esc(t.link) + '">' + inner + '</a>' : '<div class="tile" tabindex="0">' + inner + '</div>';
+  }).join('');
+})();
+
+// Only one moving tile at a time: play the video most in view (or the one being hovered), pause the rest
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('.collage video')); if (!vids.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // posters only
+  var seen = new Map(), current = null, hovered = null;
+  function choose() {
+    var best = hovered, score = 0;
+    if (!best) seen.forEach(function (r, v) { if (r > score) { score = r; best = v; } });
+    if (!best || (!hovered && score < 0.35)) best = null;
+    if (best === current) return;
+    if (current) current.pause();
+    current = best;
+    if (current) { if (current.preload !== 'auto') { current.preload = 'auto'; current.load(); } current.play().catch(function () {}); }
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { seen.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
+    choose();
+  }, { threshold: [0, .25, .5, .75, 1] });
+  vids.forEach(function (v) {
+    io.observe(v);
+    var tile = v.closest('.tile');
+    tile.addEventListener('mouseenter', function () { hovered = v; choose(); });
+    tile.addEventListener('mouseleave', function () { hovered = null; choose(); });
+  });
+})();
+
+// Floating contact button opens a small card with your details
+(function () {
+  var btn = document.getElementById('fab-btn'), card = document.getElementById('fab-card'); if (!btn) return;
+  function set(open) { card.hidden = !open; btn.setAttribute('aria-expanded', open); }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); set(card.hidden); });
+  document.addEventListener('click', function (e) { if (!card.hidden && !card.contains(e.target)) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  // "Contact" links (and arriving at index.html#contact from a case study) open the card
+  document.querySelectorAll('[data-open-contact]').forEach(function (l) { l.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); set(true); }); });
+  if (location.hash === '#contact') set(true);
+})();
+
+// Split "strategy behind it" into letters; each gets its own tilt and timing so the entrance feels hand-placed
+(function () {
+  var hl = document.querySelector('.intro h1 .hl'); if (!hl) return;
+  var t = 1.3; // seconds: starts after a short pause once the first words have landed
+  hl.querySelectorAll('.w').forEach(function (word, wi) {
+    var svg = word.querySelector('svg');
+    var text = word.firstChild.nodeValue; word.firstChild.remove();
+    var frag = document.createDocumentFragment();
+    text.split('').forEach(function (ch) {
+      var s = document.createElement('span'); s.className = 'ch'; s.textContent = ch;
+      var r = (Math.random() * 28 - 14).toFixed(1);
+      s.style.setProperty('--r', r + 'deg'); s.style.setProperty('--d', t.toFixed(2) + 's');
+      t += 0.045 + Math.random() * 0.04; frag.appendChild(s);
+    });
+    word.insertBefore(frag, svg);
+    t += 0.12; // a beat between words
+  });
+})();
+</script>
 </body>
 </html>
