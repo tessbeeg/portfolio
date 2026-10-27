@@ -72,11 +72,13 @@ a { color: inherit; }
 .logos img { height: var(--h); width: auto; display: block; }
 
 /* The collage: Pinterest-style columns of different heights */
-.collage { columns: 4 260px; column-gap: 16px; padding: 0 var(--gutter) 80px; }
+.collage { columns: 3 300px; column-gap: clamp(20px, 2.6vw, 36px); padding: 0 var(--gutter) 120px; }
 .tile { display: block; break-inside: avoid; margin-bottom: 26px; text-decoration: none; }
-.tile-media { position: relative; border-radius: 18px; overflow: hidden; background: var(--tile); }
+/* Each tile: a soft brand-tinted card with one calm detail floating inside */
+.tile-media { position: relative; border-radius: 20px; overflow: hidden; background: var(--tint, var(--tile)); padding: clamp(22px, 9%, 44px); }
+.tile-media > img, .tile-media > video { border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06); }
 .tile-media img, .tile-media video { display: block; width: 100%; height: auto; transition: transform .6s cubic-bezier(.2,.7,.1,1); }
-.tile-media video { aspect-ratio: 3 / 4; object-fit: cover; object-position: top; }
+.tile-media video { aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 6%; }
 /* Hover: the picture dims and the title of the work rises in */
 .tile-media::after { content: ""; position: absolute; inset: 0; background: rgba(17,17,17,.22); opacity: 0; transition: opacity .35s; }
 .tile-info { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 1; padding: 13px 15px 14px; border-radius: 12px;
@@ -90,7 +92,7 @@ a { color: inherit; }
 .tile:hover .tile-media img, .tile:hover .tile-media video { transform: scale(1.03); }
 .tile:focus-visible { outline: none; }
 .tile:focus-visible .tile-media { outline: 2px solid var(--ink); outline-offset: 3px; }
-.tile { margin-bottom: 16px; }
+.tile { margin-bottom: clamp(20px, 2.6vw, 36px); }
 div.tile { cursor: default; }
 
 /* Floating contact button */
@@ -172,7 +174,7 @@ div.tile { cursor: default; }
       ? '<video muted loop playsinline preload="none" poster="' + esc(t.video) + '-poster.webp" aria-label="' + esc(t.alt) + '"><source src="' + esc(t.video) + '.webm" type="video/webm"><source src="' + esc(t.video) + '.mp4" type="video/mp4"></video>'
       : '<img src="' + esc(t.image) + '" alt="' + esc(t.alt) + '" loading="lazy">';
     var info = '<div class="tile-info"><p class="tile-title">' + esc(t.title) + '</p><p class="tile-client">' + esc(t.client) + '</p>' + (t.link ? '<span class="tile-go">View case study ↗</span>' : '') + '</div>';
-    var inner = '<div class="tile-media">' + media + info + '</div>';
+    var inner = '<div class="tile-media"' + (t.tint ? ' style="--tint:' + esc(t.tint) + '"' : '') + '>' + media + info + '</div>';
     return t.link ? '<a class="tile" href="' + esc(t.link) + '">' + inner + '</a>' : '<div class="tile" tabindex="0">' + inner + '</div>';
   }).join('');
 })();
