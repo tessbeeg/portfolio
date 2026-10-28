@@ -279,6 +279,7 @@ blockquote p + p { margin-top: 16px; }
 .cs-fig .frame.pair { grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 24px); align-items: center; }
 .cs-fig img { border-radius: 6px; max-height: 640px; width: auto; }
 .cs-video { max-height: 720px; width: auto; max-width: 100%; border-radius: 26px; border: 6px solid #000; background: #000; }
+.cs-video.cs-video-desktop { width: 100%; max-height: none; border-width: 12px; border-color: #151515; border-radius: 14px; background: #fff; } /* slideshow in a screen frame */
 .cs-fig figcaption { color: var(--muted); font-size: 15px; margin-top: 10px; }
 
 .next { display: grid; gap: 8px; }
