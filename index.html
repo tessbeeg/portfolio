@@ -11,7 +11,7 @@ html { scroll-behavior: smooth; }
 @font-face { font-family: "Ronzino"; src: url("Ronzino-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 /* A quiet, neutral frame so the work and the brands carry the colour */
-:root { --bg: #f6f5f2; --ink: #111; --muted: #6b6a66; --tile: #e9e8e4; --gutter: clamp(16px, 3vw, 40px); }
+:root { --bg: #f6f5f2; --ink: #111; --muted: #6b6a66; --tile: #ebeae6; --gutter: clamp(16px, 3vw, 40px); }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--ink); font-family: "Ronzino", "Helvetica Neue", Arial, sans-serif; font-size: 17px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
@@ -75,10 +75,10 @@ a { color: inherit; }
 .collage { columns: 3 300px; column-gap: clamp(20px, 2.6vw, 36px); padding: 0 var(--gutter) 120px; }
 .tile { display: block; break-inside: avoid; margin-bottom: 26px; text-decoration: none; }
 /* Each tile: a soft brand-tinted card with one calm detail floating inside */
-.tile-media { position: relative; border-radius: 20px; overflow: hidden; background: var(--tint, var(--tile)); padding: clamp(22px, 9%, 44px); }
+.tile-media { position: relative; border-radius: 20px; overflow: hidden; background: var(--tile); padding: clamp(22px, 9%, 44px); }
 .tile-media > img, .tile-media > video { border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06); }
 .tile-media img, .tile-media video { display: block; width: 100%; height: auto; transition: transform .6s cubic-bezier(.2,.7,.1,1); }
-.tile-media video { aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 6%; }
+.tile-media video { width: 100%; height: auto; } /* whole recording stays in frame */
 /* Hover: the picture dims and the title of the work rises in */
 .tile-media::after { content: ""; position: absolute; inset: 0; background: rgba(17,17,17,.22); opacity: 0; transition: opacity .35s; }
 .tile-info { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 1; padding: 13px 15px 14px; border-radius: 12px;
@@ -172,7 +172,7 @@ div.tile { cursor: default; }
   var esc = function (t) { return String(t || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   board.innerHTML = window.COLLAGE.map(function (t) {
     var media = t.video
-      ? '<video muted loop playsinline preload="none" poster="' + esc(t.video) + '-poster.webp" aria-label="' + esc(t.alt) + '"><source src="' + esc(t.video) + '.webm" type="video/webm"><source src="' + esc(t.video) + '.mp4" type="video/mp4"></video>'
+      ? '<video' + (t.play === 'hover' ? ' data-hover' : '') + ' muted loop playsinline preload="none" poster="' + esc(t.video) + '-poster.webp" aria-label="' + esc(t.alt) + '"><source src="' + esc(t.video) + '.webm" type="video/webm"><source src="' + esc(t.video) + '.mp4" type="video/mp4"></video>'
       : '<img src="' + esc(t.image) + '" alt="' + esc(t.alt) + '" loading="lazy">';
     var info = '<div class="tile-info"><p class="tile-title">' + esc(t.title) + '</p><p class="tile-client">' + esc(t.client) + '</p>' + (t.link ? '<span class="tile-go">View case study ↗</span>' : '') + '</div>';
     var inner = '<div class="tile-media"' + (t.tint ? ' style="--tint:' + esc(t.tint) + '"' : '') + '>' + media + info + '</div>';
@@ -190,7 +190,7 @@ div.tile { cursor: default; }
     if (!best) seen.forEach(function (r, v) { if (r > score) { score = r; best = v; } });
     if (!best || (!hovered && score < 0.35)) best = null;
     if (best === current) return;
-    if (current) current.pause();
+    if (current) { current.pause(); if (current.hasAttribute('data-hover')) current.currentTime = 0; } // hover tiles return to their first frame
     current = best;
     if (current) { if (current.preload !== 'auto') { current.preload = 'auto'; current.load(); } current.play().catch(function () {}); }
   }
@@ -199,7 +199,7 @@ div.tile { cursor: default; }
     choose();
   }, { threshold: [0, .25, .5, .75, 1] });
   vids.forEach(function (v) {
-    io.observe(v);
+    if (!v.hasAttribute('data-hover')) io.observe(v); // hover-only videos wait for the mouse
     var tile = v.closest('.tile');
     tile.addEventListener('mouseenter', function () { hovered = v; choose(); });
     tile.addEventListener('mouseleave', function () { hovered = null; choose(); });
