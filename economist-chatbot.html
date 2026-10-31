@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chatbot support design — Tess Brumwell-Gaze</title>
+  <meta name="description" content="AI search and chatbot flows for The Economist’s Help Centre.">
+  <link rel="preload" href="Ronzino-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="Ronzino-Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="bar">
+    <a class="bar-name" href="index.html">tess brumwell-gaze</a>
+    <nav aria-label="Main">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </header>
+
+  <div class="split" id="top">
+
+    <aside class="poster poster-cs">
+      <a class="back" href="index.html#work">All work</a>
+      <div class="cs-head">
+        <p class="cs-tags"><span class="tag tag-craft">Conversation design</span><span class="tag tag-innov">AI search</span></p>
+        <h1>Chatbot support design</h1>
+      </div>
+      <dl class="facts">
+        <div><dt>Overview</dt><dd>The Economist wanted to help subscribers find information faster. We introduced AI search queries to our Help Centre and built chatbot flows to answer the most frequently asked questions.</dd></div>
+        <div><dt>Impact</dt><dd>Cut customer service contacts by 5%.</dd></div>
+        <div><dt>My role</dt><dd>I compared and rated models for our AI search function, training the model with examples to improve it. I redesigned decision trees for our chatbot, translating human agent language into an automated and empathetic chat experience.</dd></div>
+      </dl>
+    </aside>
+
+    <main class="column" id="content">
+      <article class="block cs-body">
+        <figure class="cs-fig">
+          <div class="frame">
+            <video class="cs-video" autoplay muted loop playsinline poster="chatbot-poster.webp" aria-label="The Economist Assistant helping a reader fix an app issue"><source src="chatbot.webm" type="video/webm"><source src="chatbot.mp4" type="video/mp4"></video>
+          </div>
+        </figure>
+        <section class="locked" data-locked="OjCBcISkjmoi7k1xiIfjtIpWS8auR289LdHVm/POcp1k4XXdz8+gxroI9gy+llZP88mhhkQFurRdfcAxIZSxdZuEiju4QJemwgWJq7k/fwih/MMSihFsZ8ueccRrlJ8GLQsPaQ==" data-iter="250000">
+          <div class="lock-card">
+            <h2 class="lock-title"><a href="#contact">Reach out to me</a> to see the full case study</h2>
+            <form class="unlock">
+              <label for="pw" class="sr-only">Password</label>
+              <div class="unlock-row">
+                <input id="pw" type="password" autocomplete="current-password" placeholder="Password" required>
+                <button type="submit">Unlock</button>
+              </div>
+              <p class="unlock-error" role="alert" hidden>That password didn&rsquo;t work. Try again?</p>
+            </form>
+          </div>
+        </section>
+      </article>
+
+      <nav class="block next" aria-label="Next case study">
+        <span class="label">Next case study</span>
+        <a href="flo.html">Growing loyalty at Flo</a>
+      </nav>
+
+      <section class="block contact" id="contact" aria-labelledby="contact-h">
+        <h2 class="label" id="contact-h">Contact</h2>
+        <p class="contact-links">
+          <a class="big-link" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a>
+          <a class="big-link" href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">in/tessbrumwellgaze</a>
+        </p>
+        <!-- The form works automatically on Netlify; messages appear under "Forms" in your Netlify dashboard. -->
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="hidden"><label>Leave this empty <input name="bot-field"></label></p>
+          <div class="field-row">
+            <label>Name<input name="name" type="text" autocomplete="name" required></label>
+            <label>Email<input name="email" type="email" autocomplete="email" required></label>
+          </div>
+          <label>Message<textarea name="message" rows="5" required></textarea></label>
+          <button type="submit">Send message</button>
+        </form>
+      </section>
+
+      <footer class="colophon">
+        <span>© <span class="yr">2026</span> Tess Brumwell-Gaze</span>
+        <span>Set in Ronzino by Collletttivo</span>
+        <a href="#top">Back to top</a>
+      </footer>
+
+    </main>
+  </div>
+  <script src="site.js"></script>
+</body>
+</html>

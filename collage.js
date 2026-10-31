@@ -23,6 +23,7 @@
 
 window.COLLAGE = [
   { video: "economist", title: "Innovating at The Economist", client: "The Economist", link: "economist.html", alt: "The Economist app, browsing the Weekly edition" },
+  { video: "chatbot", title: "Chatbot support design", client: "The Economist", link: "economist-chatbot.html", alt: "The Economist Assistant chatbot helping a reader fix an app issue" },
   { image: "tile-perk.webp", title: "Cutting friction at Perk", client: "Perk", link: "perk.html", alt: "Perk: Control for finance. Simplicity for everyone." },
   { video: "flights-vision", play: "hover", title: "Owning the vision at Booking.com", client: "Booking.com", link: "flights-vision.html", alt: "Slides from the Flights UX Vision 2023 document" },
   { image: "tile-flo.webp", title: "Growing loyalty at Flo", client: "Flo Health", link: "flo.html", alt: "Flo illustration of a woman reading in the bath" },
