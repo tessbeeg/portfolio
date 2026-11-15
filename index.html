@@ -96,12 +96,12 @@ a { color: inherit; }
 div.tile { cursor: default; }
 
 /* Floating contact button */
-.fab { position: fixed; right: clamp(14px, 2.4vw, 32px); bottom: clamp(14px, 2.4vw, 32px); z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.fab { position: fixed; right: clamp(16px, 3vw, 40px); top: 84px; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
 .fab-btn { display: inline-flex; align-items: center; gap: 10px; font: inherit; font-weight: 500; font-size: 16px; padding: 14px 22px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.18); transition: transform .25s cubic-bezier(.3,1.4,.5,1); }
 .fab-btn:hover { transform: translateY(-2px) rotate(-1.5deg); }
 .fab-dot { width: 8px; height: 8px; border-radius: 50%; background: #7ee08a; box-shadow: 0 0 0 0 rgba(126,224,138,.6); animation: ping 2.4s ease-out infinite; }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(126,224,138,.6); } 70%, 100% { box-shadow: 0 0 0 9px rgba(126,224,138,0); } }
-.fab-card { background: #fff; border-radius: 18px; padding: 18px 20px; box-shadow: 0 16px 40px rgba(0,0,0,.16); display: grid; gap: 6px; min-width: 250px; transform-origin: bottom right; animation: pop .28s cubic-bezier(.3,1.4,.5,1); }
+.fab-card { background: #fff; border-radius: 18px; padding: 18px 20px; box-shadow: 0 16px 40px rgba(0,0,0,.16); display: grid; gap: 6px; min-width: 250px; transform-origin: top right; animation: pop .28s cubic-bezier(.3,1.4,.5,1); }
 .fab-card[hidden] { display: none; }
 .fab-hello { font-size: 14px; color: var(--muted); margin-bottom: 2px; }
 .fab-link { font-weight: 500; font-size: 17px; text-decoration: none; }
@@ -132,7 +132,7 @@ div.tile { cursor: default; }
 <body>
   <header class="bar">
     <a class="bar-name" href="index.html">tess brumwell-gaze</a>
-    <nav aria-label="Main"><a href="#work">Work</a><a href="#contact" data-open-contact>Contact</a><a href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">LinkedIn</a></nav>
+    <nav aria-label="Main"><a href="#work">Work</a><a href="#contact" data-open-contact aria-controls="fab-card" aria-expanded="false">Contact</a><a href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">LinkedIn</a></nav>
   </header>
 
   <section class="intro">
@@ -162,9 +162,8 @@ div.tile { cursor: default; }
       <a class="fab-link" href="mailto:tess.brumwell@gmail.com">tess.brumwell@gmail.com</a>
       <a class="fab-link" href="https://www.linkedin.com/in/tessbrumwellgaze/" target="_blank" rel="noopener">LinkedIn ↗</a>
     </div>
-    <button class="fab-btn" id="fab-btn" type="button" aria-expanded="false" aria-controls="fab-card"><span class="fab-dot" aria-hidden="true"></span>Contact me</button>
   </div>
-<script src="collage.js?v=3"></script>
+<script src="collage.js?v=4"></script>
 <script>
 // Build the collage from collage.js
 (function () {
@@ -206,15 +205,15 @@ div.tile { cursor: default; }
   });
 })();
 
-// Floating contact button opens a small card with your details
+// "Contact" in the top bar opens a small card with your details, just below the bar
 (function () {
-  var btn = document.getElementById('fab-btn'), card = document.getElementById('fab-card'); if (!btn) return;
-  function set(open) { card.hidden = !open; btn.setAttribute('aria-expanded', open); }
-  btn.addEventListener('click', function (e) { e.stopPropagation(); set(card.hidden); });
+  var card = document.getElementById('fab-card'); if (!card) return;
+  var links = document.querySelectorAll('[data-open-contact]');
+  function set(open) { card.hidden = !open; links.forEach(function (l) { l.setAttribute('aria-expanded', open); }); }
   document.addEventListener('click', function (e) { if (!card.hidden && !card.contains(e.target)) set(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
   // "Contact" links (and arriving at index.html#contact from a case study) open the card
-  document.querySelectorAll('[data-open-contact]').forEach(function (l) { l.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); set(true); }); });
+  document.querySelectorAll('[data-open-contact]').forEach(function (l) { l.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); set(card.hidden); }); });
   if (location.hash === '#contact') set(true);
 })();
 
